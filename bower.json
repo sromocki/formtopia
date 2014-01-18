@@ -1,0 +1,34 @@
+{
+  "name": "formcheetah",
+  "version": "0.1.0",
+  "homepage": "https://github.com/daftcorp/formcheetah",
+  "description": "FormCheetah",
+  "main": "README.md",
+  "keywords": [
+    "forms"
+  ],
+  "authors": [
+    "sean_romocki"
+  ],
+  "license": "Proprietary",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "jquery": "~2.0.3",
+    "backbone": "~1.0.0",
+    "backbone.marionette": "~1.1.0",
+    "lodash": "~2.1.0",
+    "requirejs": "~2.1.8",
+    "text": "~2.0.10",
+    "handlebars": "~1.0.0",
+    "bootstrap": "~3.0.3",
+    "less": "~1.4.2",
+    "requirejs-handlebars": "jfparadis/requirejs-handlebars"
+  }
+}
