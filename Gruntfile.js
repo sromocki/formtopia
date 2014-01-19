@@ -19,17 +19,17 @@ module.exports = function(grunt) {
             compile : {
                 options : {
                     almond : true,
-                    baseUrl : "www/js",
-                    mainConfigFile : "www/js/main.js",
+                    baseUrl : "static",
+                    mainConfigFile : "static/app.js",
                     out : "build/release.min.js",
-                    include : ["main"],
+                    include : ["app"],
                 },
             },
         },
         less : {
             compile : {
                 files : {
-                    "build/css/release.css" : "www/css/main.less",
+                    "build/css/release.css" : "static/css/main.less",
                 },
             },
         },

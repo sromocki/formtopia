@@ -1,7 +1,11 @@
-<h1>This is the page for form {{form_name}}.</h1>
-{{#each fields}}
-<div class='form-group'>
-	<label>{{name}}</label>
-    <input name='{{name}}' placeholder='{{value}}'>
+<div class="container">
+	<h1>This is a preview of form: {{form_name}} created by {{form_owner}}</h1>
+	<form class="form-inline well" role="form">
+		{{#each fields}}
+		<div class="form-group">
+			<label for="{{name}}">{{name}}</label>
+		    <input class="form-control" name="{{name}}" placeholder="{{value}}">
+		</div>
+		{{/each}}
+	</form>
 </div>
-{{/each}} 

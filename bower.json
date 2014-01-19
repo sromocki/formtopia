@@ -1,8 +1,8 @@
 {
-  "name": "formcheetah",
+  "name": "formtopia",
   "version": "0.1.0",
-  "homepage": "https://github.com/daftcorp/formcheetah",
-  "description": "FormCheetah",
+  "homepage": "https://github.com/daftcorp/formtopia",
+  "description": "Formtopia",
   "main": "README.md",
   "keywords": [
     "forms"
@@ -28,6 +28,7 @@
     "text": "~2.0.10",
     "handlebars": "~1.0.0",
     "bootstrap": "~3.0.3",
+    "font-awesome": "~4.0.3",
     "less": "~1.4.2",
     "requirejs-handlebars": "jfparadis/requirejs-handlebars"
   }
