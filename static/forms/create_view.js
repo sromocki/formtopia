@@ -1,46 +1,49 @@
 define(['base',
   'hbs!./create',
   './model',
-  './components/fields/field_view',
-  './components/fields/model'],function(Base, tmpl, Form, FieldView, Field){
+  './components/rows/row_view',
+  './components/rows/model'
+  ],function(Base, tmpl, Form, RowView, Row){
   return Base.ItemView.extend({
     template : tmpl,
+    defaultRowCount : 1,
     events : {
-      'submit form' : 'addForm',
-      'click .add-field-btn' : 'addField',
+      'submit form' : 'saveForm',
       'click .add-row-btn' : 'addRow'
     },
-    defaultFieldCount : 3,
     initialize : function(){
       this.model = new Form();
     },
+
     onRender: function(){
-       _(this.defaultFieldCount).times(function(n){
-         var fieldView = new FieldView({model: new Field({form_index:n})});
-         fieldView.render();
-         this.$('.field-row').prepend(fieldView.el);
+      if(!this.model.get('row_index')){
+           this.model.set('row_index',0);
+       } 
+       _(this.defaultRowCount).times(function(n){
+        this.model.set('row_index',this.model.get('row_index')+1);
+         var rowView = new RowView({model: new Row({row_index:this.model.get('row_index')})});
+         rowView.render();
+         this.$('.form-body').prepend(rowView.el);
        },this);
     },
-    addField : function(e){
-      debugger;
-      //e.currentTarget.parentNode.parentNode.append
-      //this.$('.field-row').append("<input class='field' name='field_name' placeholder='field name'>");
+    
+    addRow : function(e){
+      this.model.set('row_index',this.model.get('row_index')+1);
+      var rowView = new RowView({model: new Row({row_index:this.model.get('row_index'), field_index:this.$('.field').length})});
+      rowView.render();
+      this.$('.form-body').append(rowView.el);
     },
-    addForm : function(e){
-      //TODO: make it possible to add any number of fields with any name
+    saveForm : function(e){
       e.preventDefault();
       var fields = [];
       this.$('.field').each(function(index){
-        fields.push({name: $(this).val(), value: ''});
+        fields.push({id: index, name: $(this).val(), value: ''});
       });
       this.model.save({
         form_name : this.$("[name=form_name]").val(),
         form_owner : this.$("[name=form_owner]").val(),
         fields : fields,
       });
-    },
-    addRow : function(e){
-
     },
   });
 });
