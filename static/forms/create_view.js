@@ -36,7 +36,7 @@ define(['base',
     saveForm : function(e){
       e.preventDefault();
       var fields = [];
-      this.$('.field').each(function(index){
+      this.$('.field-input').each(function(index){
         fields.push({id: index, name: $(this).val(), value: ''});
       });
       this.model.save({

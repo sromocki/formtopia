@@ -5,24 +5,24 @@ define(['base','./model','hbs!./field'],function(Base,Field,tmpl){
     	'click .remove-field-btn' : 'removeField',
     },
     initialize: function(){
-    	this.mediator.on('fieldAdded',this.fieldAdded,this);
-    	this.mediator.on('fieldRemoved',this.fieldRemoved,this);
+    	this.mediator.on('fieldsAdded',this.fieldsAdded,this);
+    	this.mediator.on('fieldsRemoved',this.fieldsRemoved,this);
     },
     removeField : function(){
     	this.mediator.publish('removeField',{field: this.model});
     	this.close();
     },
-    fieldRemoved : function(params){
+    fieldsRemoved : function(params){
     	if(this.model.get('row_index') >= params.row_index){
-    		if(this.model.get('field_index') > params.field_index){
-    			this.model.set('field_index',this.model.get('field_index')-1);
+    		if(!params.field_index || this.model.get('field_index') > params.field_index){
+    			this.model.set('field_index',this.model.get('field_index')-params.fieldsRemoved);
     			this.render();
     		} 
     	}
 	},
-	fieldAdded : function(params){
+	fieldsAdded : function(params){
     	if(this.model.get('row_index') > params.row_index){
-    		this.model.set('field_index',this.model.get('field_index')+1);
+    		this.model.set('field_index',this.model.get('field_index')+params.fieldsAdded);
     		this.render();
     	}
     },
