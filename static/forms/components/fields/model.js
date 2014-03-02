@@ -3,7 +3,7 @@ define(['base'],function(Base){
     urlRoot : 'fields',
     defaults : {
     	"type" : "text",
-    	"typeLabel" : "Text"
+    	"typeLabel" : "Text Box"
     }
   });
 });

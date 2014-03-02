@@ -34,7 +34,7 @@ define(['base',
        _.defer(_.bind(function(){
        this.gridster = this.$('.gridster').gridster({
            widget_margins: [10, 10],
-           widget_base_dimensions: [90, 70],
+           widget_base_dimensions: [90, 65],
            max_cols: this.max_cols,
            serialize_params : _.bind(this.serializeWidget,this),
            draggable : {
@@ -68,7 +68,7 @@ define(['base',
     },
     saveForm : function(e){
       e.preventDefault();
-      this.model.set('fields',this.collection);
+      this.model.set('fields',this.collection.toJSON());
       this.model.save();
     },
     serializeWidget : function($el, coord){
