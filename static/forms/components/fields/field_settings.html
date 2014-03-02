@@ -1,0 +1,74 @@
+<div class="field-settings-container">
+	<div class="row">
+	  <h4 class="col-xs-12">Field Settings</h4>
+	</div>
+	<div class="row form-group">
+		<ul class="nav nav-pills col-xs-3">
+			<label for="field_type">Field Type</label>
+			<li class="dropdown active">
+		  		<a data-toggle="dropdown" role="button" data-target="#">{{#if typeLabel}}{{typeLabel}}{{/if}}<b class="caret"></b></a>
+		  		<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+		    		<li value="text"><a>Text</a></li>
+		    		<li value="radio"><a>Radio Buttons</a></li>
+		    		<li value="checkbox"><a>Checkboxes</a></li>
+		  		</ul>
+			</li>
+		</ul>
+		<div class="col-xs-4">
+			<label for="field_name">Field Name</label>
+			<input type="text" class="form-control field-settings-input" name="field_name"></input>
+		</div>
+		<div class="col-xs-2">
+			<label for="required">Required</label>
+			<input type="checkbox" class="field-checkbox" name="required"></input>
+		</div>
+		<div class="col-xs-2">
+			<label for="unique">Unique</label>
+			<input type="checkbox" class="field-checkbox" name="unique"></input>
+		</div>
+	</div>
+	<div class="row form-group">
+		<div class="col-xs-4">
+			<label for="supportive_text">Supportive Text</label>
+			<input type="text" class="form-control field-settings-input" name="supportive_text"></input>
+		</div>
+		{{#ifequals . type='text'}}
+		<div class="col-xs-4">
+			<label for="string_value">Default Value</label>
+			<input type="text" class="form-control field-settings-input" name="string_value"></input>
+		</div>
+		<div class="col-xs-4">
+			<label for="placeholder">Placeholder</label>
+			<input type="text" class="form-control field-settings-input" name="placeholder"></input>
+		</div>
+		{{/ifequals}}
+		{{#ifequals . type='radio'}}
+			<div class="col-xs-2">
+				<label for="position">Horizontal</label>
+				<input type="radio" name="position" value="horizontal">
+			</div>
+			<div class="col-xs-2">
+				<label for="position">Vertical</label>
+				<input type="radio" name="position" value="vertical">
+			</div>
+		{{/ifequals}}
+		{{#ifequals . type='checkbox'}}
+			<div class="col-xs-2">
+				<label for="position">Horizontal</label>
+				<input type="radio" name="position" value="horizontal">
+			</div>
+			<div class="col-xs-2">
+				<label for="position">Vertical</label>
+				<input type="radio" name="position" value="vertical">
+			</div>
+		{{/ifequals}}
+	</div>
+	{{#ifequals . type='text'}}
+	<div class="form-group row">
+			<div class="col-xs-2">
+				<label for="max_char">Max Char</label>
+				<input type="text" class="form-control field-settings-input" name="max_char"></input>
+			</div>
+	</div>
+	{{/ifequals}}
+</div>

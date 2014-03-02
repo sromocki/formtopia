@@ -1,8 +1,8 @@
 define(['base',
-  './create_view',
+  './create_form_view',
   './index_view',
   './form_view',
-  './resources'],function(Base,CreateView,IndexView,ShowView,Resources){
+  './resources'],function(Base,CreateFormView,IndexView,FormView,Resources){
   return Base.Controller.extend({
       name : 'forms',
       index : function(params){
@@ -11,13 +11,13 @@ define(['base',
         },function(err){
         });
       },
-      create : function(){
-      	return new CreateView();
+      create_form : function(){
+      	return new CreateFormView();
       },
-      show : function(params){
+      form : function(params){
         this.need('forms').spread(function(forms){
           var form = _.findWhere(forms.models, {id:params.id});
-          params.render(new ShowView({ model : form }));
+          params.render(new FormView({ model : form }));
         },function(err){
         });
       },

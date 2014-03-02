@@ -1,30 +1,20 @@
-define(['base','./model','hbs!./field'],function(Base,Field,tmpl){
+define(['base','hbs!./field','modelbinder'],function(Base,tmpl,ModelBinder){
   return Base.ItemView.extend({
     template : tmpl,
-    events : {
-    	'click .remove-field-btn' : 'removeField',
-    },
+    className : 'field',
+    tagName : 'li',
+    // events : {
+    //     'click .remove-field-btn' : 'removeField',
+    // },
     initialize: function(){
-    	this.mediator.on('fieldsAdded',this.fieldsAdded,this);
-    	this.mediator.on('fieldsRemoved',this.fieldsRemoved,this);
+        this.modelBinder = new ModelBinder();
+        this.model.set('index',this.options.itemIndex);
+        this.model.on('change',this.render,this);
     },
-    removeField : function(){
-    	this.mediator.publish('removeField',{field: this.model});
-    	this.close();
+    onRender: function(){
+        this.modelBinder.bind(this.model, this.el);
+        $(this.el).attr('data-widget-id',this.model.cid);
     },
-    fieldsRemoved : function(params){
-    	if(this.model.get('row_index') >= params.row_index){
-    		if(!params.field_index || this.model.get('field_index') > params.field_index){
-    			this.model.set('field_index',this.model.get('field_index')-params.fieldsRemoved);
-    			this.render();
-    		} 
-    	}
-	},
-	fieldsAdded : function(params){
-    	if(this.model.get('row_index') > params.row_index){
-    		this.model.set('field_index',this.model.get('field_index')+params.fieldsAdded);
-    		this.render();
-    	}
-    },
+
   });
 });

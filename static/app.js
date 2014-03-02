@@ -1,13 +1,14 @@
 require.config({
   paths : {
-    Handlebars : 'libs/bower_components/handlebars/handlebars',
-    hbs : 'libs/bower_components/requirejs-handlebars/hbars',
-    backbone : 'libs/bower_components/backbone/backbone',
-    mario : 'libs/bower_components/backbone.marionette/lib/backbone.marionette',
-    jquery : 'libs/bower_components/jquery/jquery',
-    underscore : 'libs/bower_components/lodash/dist/lodash',
-    text : 'libs/bower_components/text/text',
-    q : 'libs/bower_components/q/q',
+    Handlebars : 'libs/handlebars/handlebars',
+    hbs : 'libs/requirejs-handlebars/hbars',
+    backbone : 'libs/backbone/backbone',
+    modelbinder : 'libs/backbone.modelbinder/Backbone.ModelBinder',
+    mario : 'libs/backbone.marionette/lib/backbone.marionette',
+    jquery : 'libs/jquery/jquery',
+    underscore : 'libs/lodash/dist/lodash',
+    text : 'libs/text/text',
+    q : 'libs/q/q',
   },
   shim : {
     backbone : {

@@ -10,7 +10,8 @@ module.exports = function(grunt) {
         },
         copy : {
           libs : {
-            src : 'bower_components/**',
+            cwd: 'bower_components/',
+            src: ['**'],
             dest : 'static/libs/',
             expand : true,
           },
