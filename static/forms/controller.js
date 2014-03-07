@@ -2,7 +2,8 @@ define(['base',
   './form_builder_view',
   './form_manager_view',
   './form_view',
-  './resources'],function(Base,FormBuilderView,FormManagerView,FormView,Resources){
+  './model',
+  './resources'],function(Base,FormBuilderView,FormManagerView,FormView,FormModel,Resources){
   return Base.Controller.extend({
       name : 'forms',
       index : function(params){
@@ -11,8 +12,17 @@ define(['base',
         },function(err){
         });
       },
-      form_builder : function(){
-      	return new FormBuilderView();
+      form_builder : function(params){
+        if(params.id){
+          var formModel = new FormModel({_id:params.id});
+          formModel.fetch({
+            success: function(model){
+              params.render(new FormBuilderView({model:model}));
+            }
+          });
+        } else {
+          return new FormBuilderView();
+        }
       },
       form : function(params){
         this.need('forms').spread(function(forms){

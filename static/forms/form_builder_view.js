@@ -20,9 +20,13 @@ define(['base',
     },
     max_cols: 10,
     initialize : function(){
-      this.model = new Form();
+      if(!this.model){
+        this.model = new Form();
+        this.collection = new Fields();
+      } else {
+        this.collection = new Fields(this.model.get('fields'));
+      }
       this.modelBinder = new ModelBinder();
-      this.collection = new Fields();
       this.mediator.on('fieldRemoved', this.fieldRemoved, this);
     },
     onRender: function(){

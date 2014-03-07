@@ -14,5 +14,6 @@ app.get('/',function(request,response){
   response.render('landing');
 });
 app.get('/forms',require('./form_service').index);
+app.get('/forms/:id',require('./form_service').getForm);
 app.post('/forms',require('./form_service').create);
 app.listen('9000');
