@@ -11,8 +11,18 @@ define(['q','resource'],function(Q,Resource){
   var getDep = function(dep) {
     var res = registry[dep];
     if (!res){
-      throw new Error("No resource found: '"+dep+"'");
+        var slashIdx = dep.indexOf('/');
+        if (slashIdx != -1){
+            var baseResource = dep.slice(0,slashIdx);
+            var param = dep.slice(slashIdx + 1);
+            if (registry[baseResource]){
+                var cons = registry[baseResource].constructor;
+                res = registry[name] = new cons(param);
+            }
+        }
     }
+    if (!res)
+        throw new Error("No resource found: '"+dep+"'");
     return getDeps(res.deps).then(function(depValues){
       return res.produceResult.apply(res,depValues);
     });

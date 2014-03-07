@@ -14,12 +14,10 @@ define(['base',
       },
       form_builder : function(params){
         if(params.id){
-          var formModel = new FormModel({_id:params.id});
-          formModel.fetch({
-            success: function(model){
-              params.render(new FormBuilderView({model:model}));
-            }
-          });
+            this.need('forms/'+params.id).spread(function(forms){
+                params.render(new FormBuilderView({model:model}));
+            },function(err){
+            });
         } else {
           return new FormBuilderView();
         }
