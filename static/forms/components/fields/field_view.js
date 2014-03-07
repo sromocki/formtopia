@@ -3,9 +3,6 @@ define(['base','hbs!./field','modelbinder'],function(Base,tmpl,ModelBinder){
     template : tmpl,
     className : 'field',
     tagName : 'li',
-    // events : {
-    //     'click .remove-field-btn' : 'removeField',
-    // },
     initialize: function(){
         this.modelBinder = new ModelBinder();
         this.model.set('index',this.options.itemIndex);

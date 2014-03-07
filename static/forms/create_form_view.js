@@ -16,12 +16,14 @@ define(['base',
     events : {
       'submit form' : 'saveForm',
       'click .add-field' : 'addField',
+      'click .field' : 'selectField'
     },
     max_cols: 10,
     initialize : function(){
       this.model = new Form();
       this.modelBinder = new ModelBinder();
       this.collection = new Fields();
+      this.mediator.on('fieldRemoved', this.fieldRemoved, this);
     },
     onRender: function(){
        this.modelBinder.bind(this.model, this.el);
@@ -45,7 +47,6 @@ define(['base',
               stop: _.bind(this.updateWidgets, this),
               enabled: true,
               handle_class: 'widget-resize',
-              //handle_append_to: 'widget-resize',
            }
          }).data('gridster');
        },this));
@@ -66,6 +67,16 @@ define(['base',
       }
       this.renderFieldsView();
     },
+    selectField : function(e){
+      if(!this.fieldSettingsView){
+          this.fieldSettingsView = new FieldSettingsView();
+          this.$('.field-settings').append(this.fieldSettingsView.el);
+      }
+      this.fieldSettingsView.model = this.collection.get(e.currentTarget.attributes['data-widget-id'].value);
+      this.fieldSettingsView.render();
+      this.$('.field').removeClass('selected');
+      $(e.currentTarget).addClass('selected');
+    },
     saveForm : function(e){
       e.preventDefault();
       this.model.set('fields',this.collection.toJSON());
@@ -76,6 +87,12 @@ define(['base',
           id : $el.attr('data-widget-id'),
           position : _.omit(coord,'el')
       };
+    },
+    fieldRemoved : function(params){
+      var fieldEl = this.$(".field[data-widget-id="+params.model.cid+"]")[0];
+      this.gridster.remove_widget($(fieldEl));
+      this.collection.remove(params.model);
+      this.fieldSettingsView = null;
     },
     updateWidgets : function(){
       var updatedWidgets = this.gridster.serialize();

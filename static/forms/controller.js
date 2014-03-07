@@ -1,13 +1,13 @@
 define(['base',
   './create_form_view',
-  './index_view',
+  './form_manager_view',
   './form_view',
-  './resources'],function(Base,CreateFormView,IndexView,FormView,Resources){
+  './resources'],function(Base,CreateFormView,FormManagerView,FormView,Resources){
   return Base.Controller.extend({
       name : 'forms',
       index : function(params){
         this.need('forms').spread(function(forms){
-          params.render(new IndexView({ collection : forms }));
+          params.render(new FormManagerView({ collection : forms }));
         },function(err){
         });
       },

@@ -5,7 +5,8 @@ define(['base','hbs!./field_settings','modelbinder', '../../../libs/bootstrap/js
     	"dropdownChoices" : "ul .dropdown-menu li"
     },
     events : {
-    	"click @ui.dropdownChoices" : "selectType"
+    	"click @ui.dropdownChoices" : "selectType",
+        "click .remove-field" : "removeField"
     },
     initialize: function(){
         this.modelBinder = new ModelBinder();
@@ -19,6 +20,10 @@ define(['base','hbs!./field_settings','modelbinder', '../../../libs/bootstrap/js
     	this.model.set("type",type);
     	this.model.set("typeLabel",typeLabel);
     	this.render();
+    },
+    removeField : function(e){
+        this.mediator.publish('fieldRemoved', {model:this.model}, this);
+        this.close();
     }
 
   });

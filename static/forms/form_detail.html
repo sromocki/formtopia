@@ -1,1 +1,4 @@
-<a href="{{link_to 'forms/form'}}/{{_id}}">These are the details for form: {{form_name}} that was created by {{form_owner}}.</a>
+<h4>{{#if form_name}}{{form_name}}{{else}}Untitled{{/if}}</h4>
+
+<a href="#">Edit</a>
+<a href="{{link_to 'forms/form'}}/{{_id}}">View</a>
