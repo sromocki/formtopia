@@ -3,6 +3,9 @@ define(['need','./collection','./model'],function(need, Forms, Form){
     initialize : function(id){
       this.fetchable = id ? new Form({ _id : id }) : new Forms();
     },
+    invalidate : function(){
+      this.fetched = false;
+    },
     produceResult : function(){
       if (this.fetched){
         return this.fetchable;

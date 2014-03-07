@@ -33,6 +33,9 @@ define(['q','resource'],function(Q,Resource){
     }
     registry[name] = new Res;
   };
+  getDeps.invalidateResource = function(name){
+    registry[name].invalidate();
+  }
   getDeps.Resource = Resource;
   getDeps.Q = Q;
   return getDeps;

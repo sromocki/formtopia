@@ -31,7 +31,7 @@ define(['base',
     },
     onRender: function(){
        this.modelBinder.bind(this.model, this.el);
-       this.addField();
+       //this.addField();
     },
     renderFieldsView : function(){
        this.fieldsView = new FieldsView({collection:this.collection});
@@ -84,7 +84,9 @@ define(['base',
     saveForm : function(e){
       e.preventDefault();
       this.model.set('fields',this.collection.toJSON());
-      this.model.save();
+      this.model.save().then(_.bind(function(){
+        this.need.invalidateResource('forms');
+      },this));
     },
     serializeWidget : function($el, coord){
       return {
