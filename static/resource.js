@@ -1,6 +1,6 @@
 define(['backbone'],function(Backbone){
   var Resource = function(){
-    this.initialize();
+    this.initialize.apply(this,arguments);
   };
   _.extend(Resource.prototype,Backbone.Events,{
     deps : [],

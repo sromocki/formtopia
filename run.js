@@ -15,5 +15,6 @@ app.get('/',function(request,response){
 });
 app.get('/forms',require('./form_service').index);
 app.get('/forms/:id',require('./form_service').getForm);
+app.put('/forms/:id',require('./form_service').updateForm);
 app.post('/forms',require('./form_service').create);
 app.listen('9000');

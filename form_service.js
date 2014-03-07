@@ -10,6 +10,12 @@ module.exports = {
       response.json(result);
     });
   },
+  updateForm : function(request, response) {
+    delete request.body['_id'];
+    Form.findByIdAndUpdate(request.params.id,request.body,function(err,result){
+      response.json(result);
+    });
+  },
   create : function(request, response) {
     Form.create(request.body,function(err,result){
       response.json(result);

@@ -1,4 +1,4 @@
-define(['need','./collection'],function(need, Forms){
+define(['need','./collection','./model'],function(need, Forms, Form){
   need.registerResource('forms',need.Resource.extend({
     initialize : function(id){
       this.fetchable = id ? new Form({ _id : id }) : new Forms();
