@@ -11,7 +11,7 @@ define(['need','./collection'],function(need, Forms){
       this.fetchable.fetch()
         .then(_.bind(function(){
           this.fetched = true;
-          def.resolve(this.collection);
+          def.resolve(this.fetchable);
           },this))
         .fail(def.reject);
      return def.promise;
