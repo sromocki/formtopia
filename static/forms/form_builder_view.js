@@ -1,5 +1,5 @@
 define(['base',
-  'hbs!./create_form',
+  'hbs!./form_builder',
   './model',
   './components/fields/collection',
   './components/fields/model',
