@@ -11,6 +11,7 @@ define(['q','resource'],function(Q,Resource){
   var getDep = function(dep) {
     var res = registry[dep];
     if (!res){
+        debugger;
         var slashIdx = dep.indexOf('/');
         if (slashIdx != -1){
             var baseResource = dep.slice(0,slashIdx);
