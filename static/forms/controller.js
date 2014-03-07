@@ -14,7 +14,7 @@ define(['base',
       },
       form_builder : function(params){
         if(params.id){
-            this.need('forms/'+params.id).spread(function(forms){
+            this.need('forms/'+params.id).spread(function(model){
                 params.render(new FormBuilderView({model:model}));
             },function(err){
             });
