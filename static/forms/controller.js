@@ -23,9 +23,8 @@ define(['base',
         }
       },
       form : function(params){
-        this.need('forms').spread(function(forms){
-          var form = _.findWhere(forms.models, {id:params.id});
-          params.render(new FormView({ model : form }));
+        this.need('forms/'+params.id).spread(function(model){
+          params.render(new FormView({model:model}));
         },function(err){
         });
       },

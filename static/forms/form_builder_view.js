@@ -31,7 +31,6 @@ define(['base',
     },
     onRender: function(){
        this.modelBinder.bind(this.model, this.el);
-       //this.addField();
     },
     renderFieldsView : function(){
        this.fieldsView = new FieldsView({collection:this.collection});

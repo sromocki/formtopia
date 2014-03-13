@@ -1,21 +1,4 @@
-.form-builder {
-		width:100%;
-		.form-container {
-			width:100%;
-		}
-	i {
-		margin-right:5px;
-	}
-	hr {
-		margin-bottom:0px;
-	}
-	.form-meta-container {
-		padding-right: 0px;
-		border-right: 1px solid;
-		.form-meta-fields {
-			font-size:11px;
-		}
-	}
+.form-viewer-container {
 	.form-body {
 		width:100%;
 		background-color: #FFFFFF;
@@ -24,7 +7,7 @@
 		overflow:hidden;
 	}
 	.form-title {
-		width: 48%;
+		width: 100%;
 		float:left;
 	}
 	.top-settings {
@@ -37,15 +20,21 @@
 	.gridster {
 		height: auto;
 		width: 980px;
-		.selected {
-			border:2px dashed;
-		}
 		.form-group {
-			border:1px dashed;
 			height:100%;
 		}
 	}
 	li {
 		list-style: none;
+	}
+	.field {
+		.form-group{
+			textarea {
+				height:55%;
+			}
+		}
+	}
+	.submit-form-btn {
+		margin-left:80.333333%;
 	}
 }

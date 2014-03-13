@@ -1,11 +1,15 @@
-<div class="container">
-	<h1>This is a preview of form: {{form_name}} created by {{form_owner}}</h1>
-	<form class="form-inline well" role="form">
-		{{#each fields}}
-		<div class="form-group">
-			<label for="{{name}}">{{name}}</label>
-		    <input class="form-control" name="{{name}}" placeholder="{{value}}">
-		</div>
-		{{/each}}
-	</form>
+<div class="form-viewer-container container">
+	  <div class="form-title">
+	    <div class="row">
+	      <h4 class="col-xs-3">{{form_name}}</h4>
+	    </div>
+	  </div>
+	  <div class="form-body well">
+	    <div class='field-container'></div>
+	  </div>
+	  <div class="container form-viewer-footer">
+	      <div class="row">
+	        <button type="submit" class="btn btn-success submit-form-btn col-xs-2">Submit Form</button>
+	      </div>
+    </div>
 </div>
