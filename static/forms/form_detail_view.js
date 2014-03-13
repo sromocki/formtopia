@@ -8,6 +8,7 @@ define(['base','hbs!./form_detail'],function(Base,tmpl){
     },
     deleteForm : function(){
     	this.model.destroy();
-    }
+    },
+    
   });
 });

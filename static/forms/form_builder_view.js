@@ -6,31 +6,43 @@ define(['base',
   './components/fields/fields_view',
   './components/fields/field_settings_view',
   'modelbinder',
-  '../libs/gridster/dist/jquery.gridster'
-  ],function(Base, tmpl, Form, Fields, FieldModel, FieldsView, FieldSettingsView, ModelBinder, gridster){
+  '../libs/gridster/dist/jquery.gridster',
+  './form_builder_footer_view'
+  ],function(Base, tmpl, Form, Fields, FieldModel, 
+  FieldsView, FieldSettingsView, ModelBinder, gridster, FormBuilderFooterView){
   return Base.ItemView.extend({
     template : tmpl,
     ui : {
       fieldContainer: '.field-container',
+      formBuilderFooter: '.form-builder-footer'
     },
     events : {
-      'submit form' : 'saveForm',
+      'submit form' : 'createForm',
       'click .add-field' : 'addField',
-      'click .field' : 'selectField'
+      'click .field' : 'selectField',
     },
     max_cols: 10,
     initialize : function(){
       if(!this.model){
         this.model = new Form();
         this.collection = new Fields();
+        this.model.set('isDraft',true);
+        this.model.set('fields',this.collection.toJSON());
+        this.saveForm();
       } else {
         this.collection = new Fields(this.model.get('fields'));
       }
+      this.model.on('change',this.saveForm,this);
+      this.collection.on('change',this.saveForm,this);
       this.modelBinder = new ModelBinder();
       this.mediator.on('fieldRemoved', this.fieldRemoved, this);
     },
     onRender: function(){
        this.modelBinder.bind(this.model, this.el);
+       this.formBuilderFooterView = new FormBuilderFooterView({model: this.model});
+       this.ui.formBuilderFooter.append(this.formBuilderFooterView.el);
+       this.formBuilderFooterView.render();
+       this.renderFieldsView();
     },
     renderFieldsView : function(){
        this.fieldsView = new FieldsView({collection:this.collection});
@@ -80,10 +92,16 @@ define(['base',
       this.$('.field').removeClass('selected');
       $(e.currentTarget).addClass('selected');
     },
-    saveForm : function(e){
+    createForm : function(e){
       e.preventDefault();
-      this.model.set('fields',this.collection.toJSON());
-      this.model.save().then(_.bind(function(){
+      this.model.set('isDraft',false);
+    },
+    saveForm: function(){
+      this.model.save(null,{
+        success: _.bind(function(model){
+          this.formBuilderFooterView.render();
+        },this),
+      }).then(_.bind(function(){
         this.need.invalidateResource('forms');
       },this));
     },

@@ -16,6 +16,11 @@ module.exports = {
       response.json(result);
     });
   },
+  deleteForm : function(request, response) {
+    Form.findByIdAndRemove(request.params.id,function(err,result){
+      response.json(result);
+    });
+  },
   create : function(request, response) {
     Form.create(request.body,function(err,result){
       response.json(result);

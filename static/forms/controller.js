@@ -6,6 +6,9 @@ define(['base',
   './resources'],function(Base,FormBuilderView,FormManagerView,FormView,FormModel,Resources){
   return Base.Controller.extend({
       name : 'forms',
+      initialize : function(){
+        this.mediator.subscribe('preview_form',this.preview_form,this);
+      },
       index : function(params){
         this.need('forms').spread(function(forms){
           params.render(new FormManagerView({ collection : forms }));

@@ -6,5 +6,6 @@ var schema = new mongoose.Schema({
   form_tags : String,
   fields : [field],
   created : { type : Date, default : Date.now },
+  isDraft : Boolean,
 });
 module.exports = mongoose.model('Form', schema);
