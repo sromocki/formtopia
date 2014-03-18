@@ -11,5 +11,6 @@ var schema = new mongoose.Schema({
   required: Boolean,
   unique: Boolean,
   type: String,
+  itemIndex: Number,
 });
 module.exports = schema;

@@ -12,91 +12,84 @@ define(['base',
   FieldsView, FieldSettingsView, ModelBinder, gridster, FormBuilderFooterView){
   return Base.ItemView.extend({
     template : tmpl,
+    max_cols: 10,
     ui : {
       fieldContainer: '.field-container',
       formBuilderFooter: '.form-builder-footer'
     },
     events : {
-      'submit form' : 'createForm',
+      'submit form' : 'finalForm',
       'click .add-field' : 'addField',
-      'click .field' : 'selectField',
+      'click .create-form-btn' : 'createForm'
     },
-    max_cols: 10,
     initialize : function(){
-      if(!this.model){
-        this.model = new Form();
-        this.collection = new Fields();
-        this.model.set('isDraft',true);
-        this.model.set('fields',this.collection.toJSON());
-        this.saveForm();
-      } else {
-        this.collection = new Fields(this.model.get('fields'));
-      }
       this.model.on('change',this.saveForm,this);
-      this.collection.on('change',this.saveForm,this);
+      this.model.get('fields').on('change',this.saveForm,this);
+      this.model.get('fields').on('add',this.saveForm,this);
+      this.model.get('fields').on('remove',this.saveForm,this);
+      this.mediator.subscribe('fieldSelected',this.selectField,this);
       this.modelBinder = new ModelBinder();
-      this.mediator.on('fieldRemoved', this.fieldRemoved, this);
     },
     onRender: function(){
+      if(this.model.id){
+        this.$('.create-form-row').addClass('hide');
+        this.$('.form-builder-container').removeClass('hide');
+      }
        this.modelBinder.bind(this.model, this.el);
+       this.renderFieldsView();
+       this.renderFooterView();
+    },
+    renderFieldsView : function(){
+      debugger;
+      if(this.fieldsView){
+        this.fieldsView.close();
+        delete this.fieldsView;
+      }
+      this.fieldsView = new FieldsView({collection:this.model.get('fields')});
+      this.ui.fieldContainer.append(this.fieldsView.el);
+      this.fieldsView.render();
+    },
+    renderFooterView : function(){
        this.formBuilderFooterView = new FormBuilderFooterView({model: this.model});
        this.ui.formBuilderFooter.append(this.formBuilderFooterView.el);
        this.formBuilderFooterView.render();
-       this.renderFieldsView();
     },
-    renderFieldsView : function(){
-       this.fieldsView = new FieldsView({collection:this.collection});
-       this.ui.fieldContainer.append(this.fieldsView.el);
-       this.fieldsView.render();
-       _.defer(_.bind(function(){
-       this.gridster = this.$('.gridster').gridster({
-           widget_margins: [10, 10],
-           widget_base_dimensions: [90, 65],
-           max_cols: this.max_cols,
-           serialize_params : _.bind(this.serializeWidget,this),
-           draggable : {
-              stop  : _.bind(this.updateWidgets,this),
-              handle : ".form-group"
-           },
-           resize: {
-              stop: _.bind(this.updateWidgets, this),
-              enabled: true,
-              handle_class: 'widget-resize',
-           }
-         }).data('gridster');
-       },this));
-    },
-    addField : function(){
-      var fieldModel = new FieldModel();
-      var position = this.nextAvailablePosition(this.collection);
-      fieldModel.set("position", position);
-      this.collection.add(fieldModel);
+    refreshFieldSettingsView : function(model){
       if(this.fieldSettingsView){
          this.fieldSettingsView.remove();
       }
-      this.fieldSettingsView = new FieldSettingsView({model:fieldModel});
+      this.fieldSettingsView = new FieldSettingsView({model:model});
       this.$('.field-settings').append(this.fieldSettingsView.el);
       this.fieldSettingsView.render();
-      if(this.fieldsView){
-        this.fieldsView.close();
-      }
-      this.renderFieldsView();
     },
-    selectField : function(e){
-      if(!this.fieldSettingsView){
-          this.fieldSettingsView = new FieldSettingsView();
-          this.$('.field-settings').append(this.fieldSettingsView.el);
+    addField : function(){
+      var fieldModel = new FieldModel();
+      var position;
+      if(this.model.get('fields').length === 1){
+        position = {
+          col: 1,
+          row: 1,
+          size_x: 2,
+          size_y: 1,
+        };
+      } else {
+        position = this.nextAvailablePosition(this.model.get('fields'));
       }
-      this.fieldSettingsView.model = this.collection.get(e.currentTarget.attributes['data-widget-id'].value);
-      this.fieldSettingsView.render();
-      this.$('.field').removeClass('selected');
-      $(e.currentTarget).addClass('selected');
+      fieldModel.set("position", position,{silent:true});
+      this.model.get('fields').add(fieldModel);
+      this.refreshFieldSettingsView(fieldModel);
     },
-    createForm : function(e){
+    finalForm : function(e){
       e.preventDefault();
       this.model.set('isDraft',false);
     },
+    createForm : function(){
+      this.$('.create-form-row').addClass('hide');
+      this.$('.form-builder-container').removeClass('hide');
+      this.model.set('isDraft',true);
+    },
     saveForm: function(){
+      debugger;
       this.model.save(null,{
         success: _.bind(function(model){
           this.formBuilderFooterView.render();
@@ -105,24 +98,9 @@ define(['base',
         this.need.invalidateResource('forms');
       },this));
     },
-    serializeWidget : function($el, coord){
-      return {
-          id : $el.attr('data-widget-id'),
-          position : _.omit(coord,'el')
-      };
-    },
-    fieldRemoved : function(params){
-      var fieldEl = this.$(".field[data-widget-id="+params.model.cid+"]")[0];
-      this.gridster.remove_widget($(fieldEl));
-      this.collection.remove(params.model);
-      this.fieldSettingsView = null;
-    },
-    updateWidgets : function(){
-      var updatedWidgets = this.gridster.serialize();
-      _.each(updatedWidgets, _.bind(function(widget){
-        var widgetModel = this.collection.get(widget.id);
-        widgetModel.set('position',widget.position);
-      },this));
+    selectField : function(params){
+      this.refreshFieldSettingsView(params.model);
+      this.$('.field').removeClass('selected');
     },
     nextAvailablePosition : function(widgets){
           var positions = widgets.pluck('position');
@@ -144,6 +122,7 @@ define(['base',
               }
             }
           }
-    },
+      },
+    
   });
 });

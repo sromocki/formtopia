@@ -22,11 +22,13 @@ define(['base',
             },function(err){
             });
         } else {
-          return new FormBuilderView();
+          return new FormBuilderView({model:new FormModel()});
         }
       },
       form : function(params){
+        debugger;
         this.need('forms/'+params.id).spread(function(model){
+          debugger;
           params.render(new FormView({model:model}));
         },function(err){
         });
