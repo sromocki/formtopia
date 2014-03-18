@@ -20,7 +20,7 @@
     "tests"
   ],
   "devDependencies": {
-    "jquery": "~2.0.3",
+    "jquery": "~1.11",
     "backbone": "~1.1.0",
     "backbone.marionette": "~1.6.2",
     "backbone.modelbinder": "1.0.5",
@@ -30,12 +30,9 @@
     "handlebars": "~1.3.0",
     "bootstrap": "~3.0.3",
     "font-awesome": "~4.0.3",
-    "gridster" : "~0.5.0",
+    "gridster": "~0.5.0",
     "less": "~1.4.2",
     "requirejs-handlebars": "jfparadis/requirejs-handlebars",
-    "q": "~1.0.0"
-  },
-  "dependencies": {
     "q": "~1.0.0"
   }
 }

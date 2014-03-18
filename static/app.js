@@ -5,7 +5,7 @@ require.config({
     backbone : 'libs/backbone/backbone',
     modelbinder : 'libs/backbone.modelbinder/Backbone.ModelBinder',
     mario : 'libs/backbone.marionette/lib/backbone.marionette',
-    jquery : 'libs/jquery/jquery',
+    jquery : 'libs/jquery/dist/jquery',
     underscore : 'libs/lodash/dist/lodash',
     text : 'libs/text/text',
     q : 'libs/q/q',
