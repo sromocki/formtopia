@@ -14,8 +14,8 @@ define(['base','hbs!./field','modelbinder'],function(Base,tmpl,ModelBinder){
         this.modelBinder.bind(this.model, this.el);
     },
     selectField : function(e){
-      this.mediator.publish('fieldSelected',{model:this.model});
-      $(e.currentTarget).addClass('selected');
+        this.mediator.publish('fieldSelected',{model:this.model});
+        $(e.currentTarget).addClass('selected');
     },
 
   });

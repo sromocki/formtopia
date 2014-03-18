@@ -12,7 +12,7 @@ define(['base','./field_view','../../../libs/gridster/dist/jquery.gridster'],fun
 	  	buildItemView: function(item,itemViewType,itemViewOptions){
 	  		var options = _.extend({model: item}, itemViewOptions);
 	  		var view = new itemViewType(options);
-	  		item.set("itemIndex", view.options.itemIndex,{silent:true});
+	  		item.set("itemIndex", view.options.itemIndex);
 	  		view.$el.attr({
 	  			'data-row' : item.get('position').row,
 	  			'data-col' : item.get('position').col,
@@ -26,25 +26,28 @@ define(['base','./field_view','../../../libs/gridster/dist/jquery.gridster'],fun
 	  		this.mediator.on('fieldRemoved', this.fieldRemoved, this);
 	  		this.constructGrid();
 	  	},
-	  	constructGrid : _.once(function(){
-	  		this.gridster = this.$el.gridster({
-               widget_margins: [10, 10],
-               widget_base_dimensions: [90, 65],
-               max_cols: this.max_cols,
-               //min_cols: 10,
-               //extra_rows: 4,
-               serialize_params : _.bind(this.serializeWidget,this),
-               draggable : {
-                  stop  : _.bind(this.updateWidgets,this),
-                  handle : ".form-group"
-               },
-               resize: {
-                  stop: _.bind(this.updateWidgets, this),
-                  enabled: true,
-                  handle_class: 'widget-resize',
-               }
-            }).data('gridster');
-	  	}),
+	  	constructGrid : function(){
+	  		if(!this.gridster){
+		  		//_.defer(_.bind(function(){
+			  		this.gridster = this.$el.gridster({
+		               widget_margins: [10, 10],
+		               widget_base_dimensions: [90, 65],
+		               max_cols: this.max_cols,
+		               min_cols: 10,
+		               serialize_params : _.bind(this.serializeWidget,this),
+		               draggable : {
+		                  stop  : _.bind(this.updateWidgets,this),
+		                  handle : ".form-group"
+		               },
+		               resize: {
+		                  stop: _.bind(this.updateWidgets, this),
+		                  enabled: true,
+		                  handle_class: 'widget-resize',
+		               }
+		            }).data('gridster');
+		       // },this));
+	  		}
+	  	},
 	  	appendHtml: function(collectionView, itemView, index){
 	  		this.gridster.add_widget(itemView.el,
 	  			+itemView.el.attributes['data-sizex'].value,
@@ -61,8 +64,9 @@ define(['base','./field_view','../../../libs/gridster/dist/jquery.gridster'],fun
 	    updateWidgets : function(){
 	      var updatedWidgets = this.gridster.serialize();
 	      _.each(updatedWidgets, _.bind(function(widget){
-	        var widgetModel = this.collection.findWhere({itemIndex: widget.itemIndex});
-	        widgetModel.set('position',widget.position);
+	      	debugger;
+	        var widgetModel = this.collection.findWhere({itemIndex: +widget.index});
+	        widgetModel.set('position',widget.position,{silent:true});
 	      },this));
 	    },
 	    fieldRemoved : function(params){

@@ -6,8 +6,10 @@ define(['base','./components/fields/collection'],function(Base, Fields){
     	"fields" : new Fields(),
     },
     parse : function(response, options){
+      if(this.get('fields')){
        this.get('fields').set(response.fields, { silent : true });
        response.fields = this.get('fields');
+     }
        return response;
     },
     toJSON : function(){

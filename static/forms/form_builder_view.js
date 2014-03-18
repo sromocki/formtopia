@@ -31,12 +31,20 @@ define(['base',
       this.modelBinder = new ModelBinder();
     },
     onRender: function(){
+      if(this.model.id){
+        this.$('.create-form-row').addClass('hide');
+        this.$('.form-builder-container').removeClass('hide');
+      }
        this.modelBinder.bind(this.model, this.el);
        this.renderFieldsView();
        this.renderFooterView();
     },
     renderFieldsView : function(){
       debugger;
+      if(this.fieldsView){
+        this.fieldsView.close();
+        delete this.fieldsView;
+      }
       this.fieldsView = new FieldsView({collection:this.model.get('fields')});
       this.ui.fieldContainer.append(this.fieldsView.el);
       this.fieldsView.render();
@@ -95,7 +103,6 @@ define(['base',
       this.$('.field').removeClass('selected');
     },
     nextAvailablePosition : function(widgets){
-        debugger;
           var positions = widgets.pluck('position');
           var positionsUsed = [];
           _.times(this.max_cols, function(n){
