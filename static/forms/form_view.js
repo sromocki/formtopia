@@ -1,19 +1,15 @@
 define(['base',
 		'hbs!./form',
-		'./components/fields/collection',
 		'./components/fields/fields_view',
-		'../libs/gridster/dist/jquery.gridster'],function(Base,tmpl,Fields,FieldsView,gridster){
+		'../libs/gridster/dist/jquery.gridster'],function(Base,tmpl,FieldsView,gridster){
   return Base.ItemView.extend({
     template : tmpl,
     ui : {
       fieldContainer: '.field-container'
     },
-    initialize : function(){
-        this.collection = new Fields(this.model.get('fields'));
-    },
     onRender : function(){
        $('.header').addClass('hide');
-       this.fieldsView = new FieldsView({collection:this.collection});
+       this.fieldsView = new FieldsView({collection:this.model.get('fields')});
        this.ui.fieldContainer.append(this.fieldsView.el);
        this.fieldsView.render();
        _.defer(_.bind(function(){
