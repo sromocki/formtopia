@@ -9,6 +9,7 @@ define(['base','./field_view','../../../libs/gridster/dist/jquery.gridster'],fun
 		      itemIndex: index
 		    };
 		},
+		itemViewEventPrefix : "field",
 	  	buildItemView: function(item,itemViewType,itemViewOptions){
 	  		var options = _.extend({model: item}, itemViewOptions);
 	  		var view = new itemViewType(options);
@@ -28,7 +29,6 @@ define(['base','./field_view','../../../libs/gridster/dist/jquery.gridster'],fun
 	  	},
 	  	constructGrid : function(){
 	  		if(!this.gridster){
-		  		//_.defer(_.bind(function(){
 			  		this.gridster = this.$el.gridster({
 		               widget_margins: [10, 10],
 		               widget_base_dimensions: [90, 65],
@@ -45,7 +45,6 @@ define(['base','./field_view','../../../libs/gridster/dist/jquery.gridster'],fun
 		                  handle_class: 'widget-resize',
 		               }
 		            }).data('gridster');
-		       // },this));
 	  		}
 	  	},
 	  	appendHtml: function(collectionView, itemView, index){
@@ -64,7 +63,6 @@ define(['base','./field_view','../../../libs/gridster/dist/jquery.gridster'],fun
 	    updateWidgets : function(){
 	      var updatedWidgets = this.gridster.serialize();
 	      _.each(updatedWidgets, _.bind(function(widget){
-	      	debugger;
 	        var widgetModel = this.collection.findWhere({itemIndex: +widget.index});
 	        widgetModel.set('position',widget.position,{silent:true});
 	      },this));

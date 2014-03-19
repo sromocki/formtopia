@@ -24,9 +24,9 @@ define(['base',
     },
     initialize : function(){
       this.model.on('change',this.saveForm,this);
-      this.model.get('fields').on('change',this.saveForm,this);
       this.model.get('fields').on('add',this.saveForm,this);
       this.model.get('fields').on('remove',this.saveForm,this);
+      this.mediator.subscribe('fieldModified',this.saveForm,this);
       this.mediator.subscribe('fieldSelected',this.selectField,this);
       this.modelBinder = new ModelBinder();
     },
@@ -36,20 +36,30 @@ define(['base',
         this.$('.form-builder-container').removeClass('hide');
       }
        this.modelBinder.bind(this.model, this.el);
-       this.renderFieldsView();
-       this.renderFooterView();
+       _.defer(_.bind(function(){
+        this.renderFieldsView();
+        this.renderFooterView();
+       },this));
     },
     renderFieldsView : function(){
-      debugger;
       if(this.fieldsView){
         this.fieldsView.close();
         delete this.fieldsView;
       }
       this.fieldsView = new FieldsView({collection:this.model.get('fields')});
+
+      this.fieldsView.on("field:fieldModified",_.bind(function(childView,model){
+        this.saveForm(model);
+      },this));
+
       this.ui.fieldContainer.append(this.fieldsView.el);
       this.fieldsView.render();
     },
     renderFooterView : function(){
+       if(this.formBuilderFooterView){
+          this.formBuilderFooterView.close();
+          delete this.formBuilderFooterView;
+       }
        this.formBuilderFooterView = new FormBuilderFooterView({model: this.model});
        this.ui.formBuilderFooter.append(this.formBuilderFooterView.el);
        this.formBuilderFooterView.render();
@@ -57,6 +67,7 @@ define(['base',
     refreshFieldSettingsView : function(model){
       if(this.fieldSettingsView){
          this.fieldSettingsView.remove();
+         delete this.fieldSettingsView;
       }
       this.fieldSettingsView = new FieldSettingsView({model:model});
       this.$('.field-settings').append(this.fieldSettingsView.el);
@@ -77,7 +88,6 @@ define(['base',
       }
       fieldModel.set("position", position,{silent:true});
       this.model.get('fields').add(fieldModel);
-      this.refreshFieldSettingsView(fieldModel);
     },
     finalForm : function(e){
       e.preventDefault();
@@ -88,11 +98,15 @@ define(['base',
       this.$('.form-builder-container').removeClass('hide');
       this.model.set('isDraft',true);
     },
-    saveForm: function(){
-      debugger;
+    saveForm: function(modelSelected){
       this.model.save(null,{
         success: _.bind(function(model){
-          this.formBuilderFooterView.render();
+          this.model.set('fields',model.get('fields'),{silent:true});
+          this.renderFieldsView();
+          this.renderFooterView();
+          if(modelSelected){
+            _.defer(_.bind(function(){this.selectField({model:modelSelected})},this));
+          }
         },this),
       }).then(_.bind(function(){
         this.need.invalidateResource('forms');
@@ -101,6 +115,11 @@ define(['base',
     selectField : function(params){
       this.refreshFieldSettingsView(params.model);
       this.$('.field').removeClass('selected');
+      _.each(this.fieldsView.children._views, function(view){
+        if(view.model.cid === params.model.cid){
+          view.$el.addClass('selected');
+        }
+      });
     },
     nextAvailablePosition : function(widgets){
           var positions = widgets.pluck('position');

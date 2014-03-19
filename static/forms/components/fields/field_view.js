@@ -6,17 +6,23 @@ define(['base','hbs!./field','modelbinder'],function(Base,tmpl,ModelBinder){
     events : {
         'click' : 'selectField'
     },
+    modelEvents: {
+        "change": "fieldModified"
+    },
     initialize: function(){
         this.modelBinder = new ModelBinder();
-        this.model.on('change',this.render,this);
     },
     onRender: function(){
         this.modelBinder.bind(this.model, this.el);
     },
     selectField : function(e){
         this.mediator.publish('fieldSelected',{model:this.model});
-        $(e.currentTarget).addClass('selected');
+        this.$el.addClass('selected');
     },
+    fieldModified : function(){
+        this.trigger('fieldModified',this.model);
+        this.render();
+    }
 
   });
 });
