@@ -24,7 +24,6 @@ define(['base',
     },
     initialize : function(){
       this.model.on('change',this.saveForm,this);
-      this.model.get('fields').on('add',this.saveForm,this);
       this.model.get('fields').on('remove',this.saveForm,this);
       this.mediator.subscribe('fieldModified',this.saveForm,this);
       this.mediator.subscribe('fieldSelected',this.selectField,this);
@@ -88,6 +87,8 @@ define(['base',
       }
       fieldModel.set("position", position,{silent:true});
       this.model.get('fields').add(fieldModel);
+      debugger;
+      this.saveForm(fieldModel);
     },
     finalForm : function(e){
       e.preventDefault();
@@ -98,14 +99,15 @@ define(['base',
       this.$('.form-builder-container').removeClass('hide');
       this.model.set('isDraft',true);
     },
-    saveForm: function(modelSelected){
+    saveForm: function(fieldSelected){
       this.model.save(null,{
         success: _.bind(function(model){
           this.model.set('fields',model.get('fields'),{silent:true});
           this.renderFieldsView();
           this.renderFooterView();
-          if(modelSelected){
-            _.defer(_.bind(function(){this.selectField({model:modelSelected})},this));
+          if(fieldSelected && fieldSelected.get('itemIndex') !== undefined){
+            var fieldModel = this.model.get('fields').findWhere({itemIndex:fieldSelected.get('itemIndex')});
+            _.defer(_.bind(function(){this.selectField({model:fieldModel})},this));
           }
         },this),
       }).then(_.bind(function(){
@@ -116,7 +118,7 @@ define(['base',
       this.refreshFieldSettingsView(params.model);
       this.$('.field').removeClass('selected');
       _.each(this.fieldsView.children._views, function(view){
-        if(view.model.cid === params.model.cid){
+        if(view.model.get('itemIndex') === params.model.get('itemIndex')){
           view.$el.addClass('selected');
         }
       });
