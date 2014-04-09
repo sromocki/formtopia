@@ -87,7 +87,6 @@ define(['base',
       }
       fieldModel.set("position", position,{silent:true});
       this.model.get('fields').add(fieldModel);
-      debugger;
       this.saveForm(fieldModel);
     },
     finalForm : function(e){

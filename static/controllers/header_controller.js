@@ -1,4 +1,4 @@
-define(['base','./view'],function(Base,HeaderView){
+define(['base','../header/view'],function(Base,HeaderView){
   return Base.Controller.extend({
     name : 'header',
     initialize : function(){

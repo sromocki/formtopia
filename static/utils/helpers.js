@@ -1,7 +1,8 @@
 define(['Handlebars'],function(Handlebars){
   Handlebars.registerHelper('link_to',function(){
-    var args = _.initial(arguments);
-    return '#' + args.join('/');
+    var args = _.initial(arguments),
+        usePushState = !!window.history.pushState;
+    return (usePushState ? "/" : "#") + args.join('/');
   });
   Handlebars.registerHelper('ifequals', function(context, options) {
 	var passed = _.all(options.hash, function(val, key, hash){
@@ -20,5 +21,5 @@ define(['Handlebars'],function(Handlebars){
         } else {
             return options.inverse(this);
         }
-    });   
+    });
 });

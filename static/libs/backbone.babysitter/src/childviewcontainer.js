@@ -44,7 +44,6 @@ Backbone.ChildViewContainer = (function(Backbone, _){
       }
 
       this._updateLength();
-      return this;
     },
 
     // Find a view by the model that was attached to
@@ -73,7 +72,7 @@ Backbone.ChildViewContainer = (function(Backbone, _){
       return _.values(this._views)[index];
     },
 
-    // retrieve a view by its `cid` directly
+    // retrieve a view by it's `cid` directly
     findByCid: function(cid){
       return this._views[cid];
     },
@@ -100,7 +99,6 @@ Backbone.ChildViewContainer = (function(Backbone, _){
 
       // update the length
       this._updateLength();
-      return this;
     },
 
     // Call a method on every view in the container,

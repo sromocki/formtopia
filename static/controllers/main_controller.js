@@ -1,4 +1,4 @@
-define(['base','header/controller','landing/controller','forms/controller','./view'],
+define(['base','./header_controller','./landing_controller','./forms_controller','../main/view'],
     function(Base,HeaderController,LandingController,FormsController,MainView){
   return Base.Controller.extend({
     name : 'main',

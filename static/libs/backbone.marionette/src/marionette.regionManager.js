@@ -17,7 +17,7 @@ Marionette.RegionManager = (function(Marionette){
       var regions = {};
 
       _.each(regionDefinitions, function(definition, name){
-        if (_.isString(definition)){
+        if (typeof definition === "string"){
           definition = { selector: definition };
         }
 
@@ -85,7 +85,8 @@ Marionette.RegionManager = (function(Marionette){
     // manager entirely
     close: function(){
       this.removeRegions();
-      Marionette.Controller.prototype.close.apply(this, arguments);
+      var args = Array.prototype.slice.call(arguments);
+      Marionette.Controller.prototype.close.apply(this, args);
     },
 
     // internal method to store regions

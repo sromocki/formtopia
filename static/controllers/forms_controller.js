@@ -1,9 +1,9 @@
 define(['base',
-  './form_builder_view',
-  './form_manager_view',
-  './form_view',
-  './model',
-  './resources'],function(Base,FormBuilderView,FormManagerView,FormView,FormModel,Resources){
+  '../forms/form_builder_view',
+  '../forms/form_manager_view',
+  '../forms/form_view',
+  '../forms/model',
+  '../forms/resources'],function(Base,FormBuilderView,FormManagerView,FormView,FormModel,Resources){
   return Base.Controller.extend({
       name : 'forms',
       initialize : function(){

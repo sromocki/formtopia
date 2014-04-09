@@ -68,8 +68,9 @@ define(['base','./field_view','../../../libs/gridster/dist/jquery.gridster'],fun
 	      },this));
 	    },
 	    fieldRemoved : function(params){
+	    	debugger;
 	      var fieldEl = this.$('.field[data-index='+params.model.get('itemIndex')+']')[0];
-	      this.gridster.remove_widget($(fieldEl));
+	      this.gridster.remove_widget(fieldEl);
 	      this.collection.remove(params.model);
 	    },
 

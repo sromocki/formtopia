@@ -1,7 +1,7 @@
 {
   "name": "backbone.marionette",
   "description": "Make your Backbone.js apps dance!",
-  "version": "1.6.4",
+  "version": "1.6.1",
   "repo": "marionettejs/backbone.marionette",
   "main": "lib/core/amd/backbone.marionette.js",
   "keywords": [
@@ -31,8 +31,7 @@
   "dependencies": {
     "marionettejs/backbone.babysitter": "*",
     "marionettejs/backbone.wreqr": "*",
-    "jashkenas/backbone": "*",
-    "jashkenas/underscore": "*"
+    "jashkenas/backbone": "*"
   },
   "scripts": [
     "lib/core/amd/backbone.marionette.js"

@@ -1,11 +1,11 @@
 // Backbone.BabySitter
 // -------------------
-// v0.1.0
+// v0.0.6
 //
-// Copyright (c)2014 Derick Bailey, Muted Solutions, LLC.
+// Copyright (c)2013 Derick Bailey, Muted Solutions, LLC.
 // Distributed under MIT license
 //
-// http://github.com/marionettejs/backbone.babysitter
+// http://github.com/babysitterjs/backbone.babysitter
 
 (function (root, factory) {
   if (typeof exports === 'object') {
@@ -69,7 +69,6 @@ Backbone.ChildViewContainer = (function(Backbone, _){
       }
 
       this._updateLength();
-      return this;
     },
 
     // Find a view by the model that was attached to
@@ -98,7 +97,7 @@ Backbone.ChildViewContainer = (function(Backbone, _){
       return _.values(this._views)[index];
     },
 
-    // retrieve a view by its `cid` directly
+    // retrieve a view by it's `cid` directly
     findByCid: function(cid){
       return this._views[cid];
     },
@@ -125,7 +124,6 @@ Backbone.ChildViewContainer = (function(Backbone, _){
 
       // update the length
       this._updateLength();
-      return this;
     },
 
     // Call a method on every view in the container,

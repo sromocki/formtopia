@@ -20,12 +20,14 @@ Marionette.Application = function(options){
 _.extend(Marionette.Application.prototype, Backbone.Events, {
   // Command execution, facilitated by Backbone.Wreqr.Commands
   execute: function(){
-    this.commands.execute.apply(this.commands, arguments);
+    var args = Array.prototype.slice.apply(arguments);
+    this.commands.execute.apply(this.commands, args);
   },
 
   // Request/response, facilitated by Backbone.Wreqr.RequestResponse
   request: function(){
-    return this.reqres.request.apply(this.reqres, arguments);
+    var args = Array.prototype.slice.apply(arguments);
+    return this.reqres.request.apply(this.reqres, args);
   },
 
   // Add an initializer that is either run at when the `start`
@@ -75,13 +77,16 @@ _.extend(Marionette.Application.prototype, Backbone.Events, {
 
   // Create a module, attached to the application
   module: function(moduleNames, moduleDefinition){
+    var ModuleClass = Marionette.Module;
 
     // Overwrite the module class if the user specifies one
-    var ModuleClass = Marionette.Module.getClass(moduleDefinition);
+    if (moduleDefinition) {
+      ModuleClass = moduleDefinition.moduleClass || ModuleClass;
+    }
 
     // slice the args, and add this application object as the
     // first argument of the array
-    var args = slice.call(arguments);
+    var args = slice(arguments);
     args.unshift(this);
 
     // see the Marionette.Module object for more information

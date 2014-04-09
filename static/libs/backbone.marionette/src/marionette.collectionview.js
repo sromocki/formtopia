@@ -12,7 +12,7 @@ Marionette.CollectionView = Marionette.View.extend({
   constructor: function(options){
     this._initChildViewStorage();
 
-    Marionette.View.prototype.constructor.apply(this, arguments);
+    Marionette.View.prototype.constructor.apply(this, slice(arguments));
 
     this._initialEvents();
     this.initRenderBuffer();
@@ -51,9 +51,9 @@ Marionette.CollectionView = Marionette.View.extend({
   // binds to.
   _initialEvents: function(){
     if (this.collection){
-      this.listenTo(this.collection, "add", this.addChildView);
-      this.listenTo(this.collection, "remove", this.removeItemView);
-      this.listenTo(this.collection, "reset", this.render);
+      this.listenTo(this.collection, "add", this.addChildView, this);
+      this.listenTo(this.collection, "remove", this.removeItemView, this);
+      this.listenTo(this.collection, "reset", this.render, this);
     }
   },
 
@@ -212,7 +212,7 @@ Marionette.CollectionView = Marionette.View.extend({
     // Forward all child item view events through the parent,
     // prepending "itemview:" to the event name
     this.listenTo(view, "all", function(){
-      var args = slice.call(arguments);
+      var args = slice(arguments);
       var rootEvent = args[0];
       var itemEvents = this.normalizeMethods(this.getItemEvents());
 
@@ -294,7 +294,7 @@ Marionette.CollectionView = Marionette.View.extend({
 
   // Append the HTML to the collection's `el`.
   // Override this method to do something other
-  // than `.append`.
+  // then `.append`.
   appendHtml: function(collectionView, itemView, index){
     if (collectionView.isBuffering) {
       // buffering happens on reset events and initial renders
@@ -325,7 +325,7 @@ Marionette.CollectionView = Marionette.View.extend({
     this.closeChildren();
     this.triggerMethod("collection:closed");
 
-    Marionette.View.prototype.close.apply(this, arguments);
+    Marionette.View.prototype.close.apply(this, slice(arguments));
   },
 
   // Close the child views that this collection view

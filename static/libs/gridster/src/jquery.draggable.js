@@ -76,9 +76,8 @@
     var fn = Draggable.prototype;
 
     fn.init = function() {
-        var pos = this.$container.css('position');
         this.calculate_dimensions();
-        this.$container.css('position', pos === 'static' ? 'relative' : pos);
+        this.$container.css('position', 'relative');
         this.disabled = false;
         this.events();
 

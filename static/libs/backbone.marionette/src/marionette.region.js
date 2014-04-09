@@ -9,7 +9,9 @@ Marionette.Region = function(options){
   this.el = Marionette.getOption(this, "el");
 
   if (!this.el){
-    throwError("An 'el' must be specified for a region.", "NoElError");
+    var err = new Error("An 'el' must be specified for a region.");
+    err.name = "NoElError";
+    throw err;
   }
 
   if (this.initialize){
@@ -39,13 +41,13 @@ _.extend(Marionette.Region, {
   // ```
   //
   buildRegion: function(regionConfig, defaultRegionType){
-    var regionIsString = _.isString(regionConfig);
-    var regionSelectorIsString = _.isString(regionConfig.selector);
-    var regionTypeIsUndefined = _.isUndefined(regionConfig.regionType);
-    var regionIsType = _.isFunction(regionConfig);
+    var regionIsString = (typeof regionConfig === "string");
+    var regionSelectorIsString = (typeof regionConfig.selector === "string");
+    var regionTypeIsUndefined = (typeof regionConfig.regionType === "undefined");
+    var regionIsType = (typeof regionConfig === "function");
 
     if (!regionIsType && !regionIsString && !regionSelectorIsString) {
-      throwError("Region must be specified as a Region type, a selector string or an object with selector property");
+      throw new Error("Region must be specified as a Region type, a selector string or an object with selector property");
     }
 
     var selector, RegionType;

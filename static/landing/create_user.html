@@ -1,0 +1,26 @@
+<div class="row">
+		<div class="col-xs-5">
+			<h4>Create User</h4>
+		</div>
+</div>
+<form action="/api/user" method="post" class="create-user-form">
+	  <div class="row">
+	  		<label for="username">Username</label>
+			<input class="form-control" name='username' placeholder='Username'></input>
+	  </div>
+	  <div class="row">
+	  		<label for="password">Password</label>
+			<input class="form-control" name='password' placeholder='Password'></input>
+	  </div>
+	  <div class="row">
+	  		<label for="confirm">Confirm Password</label>
+			<input class="form-control" name='confirm' placeholder='Confirm Password'></input>
+	  </div>
+	  <div class="row">
+	  		<label for="email">Email</label>
+			<input class="form-control" name='email' placeholder='Email'></input>
+	  </div>
+	  <div class="row">
+	  	<button type="submit" class="btn btn-primary create-user-btn col-xs-offset-7 col-xs-4">Create User</button>
+	  </div>
+</form>

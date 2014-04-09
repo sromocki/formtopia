@@ -24,8 +24,11 @@ require.config({
     },
   },
 });
-define(['router','main/controller','backbone','utils/helpers'],function(Router, MainController, Backbone, Helpers){
-  new MainController({ $el : $('body') }).mediator.publish('go',{controller : 'main' });
-  new Router();
-  Backbone.history.start();
+define(['router','controllers/main_controller','backbone','utils/helpers'],function(Router, MainController, Backbone, Helpers){
+  var router = new Router();
+  var c = new MainController({ $el : $('body') }).mediator.publish('go',{controller : 'main' });
+
+  window.bamfrouter = router;
+
+  Backbone.history.start({pushState: true});
 });
