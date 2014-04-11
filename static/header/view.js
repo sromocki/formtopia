@@ -6,7 +6,8 @@ define(['base','hbs!./template'],function(Base,tmpl){
 		},
 		handleUrl : function(e){
 			var url = $(e.currentTarget).attr('href');
-			if (url && url[0] != '#' && (url.indexOf('http') !== 0) && (url.indexOf('mailto') !== 0)){
+      var rawLink = $(e.currentTarget).attr('data-raw');
+			if ((!rawLink) && url && url[0] != '#' && (url.indexOf('http') !== 0) && (url.indexOf('mailto') !== 0)){
 				window.bamfrouter.navigate(url, { trigger : true });
 				e.preventDefault();
 			}

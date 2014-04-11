@@ -7,11 +7,21 @@ define(['base'],function(Base){
       ':controller/:controller/:id' : 'defaultRoute',
     },
     defaultRoute : function(controller, action, id){
-      this.mediator.publish('go',{
-        controller : controller || 'landing',
-        action : action,
-        id : id,
-      });
+      if(window.currentUser){
+        this.mediator.publish('go',{
+          controller : controller || 'landing',
+          action : action,
+          id : id,
+        });
+      } else if (controller && controller !== "landing") {
+        window.location.pathname = "/";
+      } else {
+        this.mediator.publish('go',{
+          controller : controller || 'landing',
+          action : 'index',
+          id : id,
+        });
+      }
     },
   });
 });

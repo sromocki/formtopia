@@ -1,4 +1,4 @@
-define(['base','../header/view'],function(Base,HeaderView){
+define(['base','../header/view','jquery'],function(Base,HeaderView,$){
   return Base.Controller.extend({
     name : 'header',
     initialize : function(){
@@ -7,7 +7,16 @@ define(['base','../header/view'],function(Base,HeaderView){
       }));
     },
     index : function(){
-      return new HeaderView();
+      var user = new Base.Model(window.currentUser) || new Base.Model();
+
+      return new HeaderView({model : user});
+    },
+    logout : function(){
+      $.ajax({
+        url: '/session/logout',
+        type : 'GET',
+      });
+
     },
   });
 });

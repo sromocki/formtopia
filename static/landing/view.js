@@ -3,7 +3,7 @@ define(['base','hbs!./template','./login_view','./create_user_view'],function(Ba
     template : tmpl,
     events : {
        'click .register-btn' : 'createUser',
-       'click .login-btn' : 'loginUser'
+       'click .landing-login-btn' : 'loginUser'
     },
     createUser : function(){
     	this.$('.login-row, .register-row').addClass('hide');

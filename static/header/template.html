@@ -13,6 +13,9 @@
       <li class="active"><a href="{{link_to 'forms'}}">Form Manager</a></li>
       <li class="active"><a href="{{link_to 'forms'}}">Contact</a></li>
       <li class="active"><a href="{{link_to 'forms'}}">About</a></li>
+      {{#if username}}
+      <li class="active"><a href="/session/logout" data-raw='true'>Logout</a></li>
+      {{/if}}
     </ul>
   </div>
   </nav>

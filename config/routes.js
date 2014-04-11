@@ -5,14 +5,27 @@ module.exports = function(config) {
 	var passport = config.passport;
 
 	app.get('/',function(request,response){
-  	response.render('landing');
+  	response.render('landing', { user : request.user && JSON.stringify(request.user)});
 	});
 	app.get('/forms',function(request,response){
 		response.render('landing');
 	});
-	app.post('/api/login', passport.authenticate('local', { successRedirect: '/#forms/form_builder',
-	                                   				             failureRedirect: '/' }));
-	app.get('/api/logout', forms.index);
+	app.post('/api/login', function(req,res,next) {
+		passport.authenticate('local', function(err, user, info) {
+	    if (err) { return next(err); }
+	    if (!user) { return res.redirect('/'); }
+	    req.logIn(user, function(err) {
+	      if (err) { return next(err); }
+	      return res.redirect('/#forms/form_builder');
+	    });
+  	})(req, res, next);
+	});
+
+	app.get('/session/logout', function(req,res,next) {
+		req.logout();
+		res.redirect('/');
+	});
+
 	app.post('/api/user', users.create);
 
 	app.get('/api/forms', forms.index);
