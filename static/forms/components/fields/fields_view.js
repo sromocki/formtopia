@@ -8,8 +8,8 @@ define(['base','./field_view','../../../libs/gridster/dist/jquery.gridster'],fun
 		    return {
 		      itemIndex: index
 		    };
-		},
-		itemViewEventPrefix : "field",
+		  },
+		  itemViewEventPrefix : "field",
 	  	buildItemView: function(item,itemViewType,itemViewOptions){
 	  		var options = _.extend({model: item}, itemViewOptions);
 	  		var view = new itemViewType(options);
@@ -17,7 +17,7 @@ define(['base','./field_view','../../../libs/gridster/dist/jquery.gridster'],fun
 	  		view.$el.attr({
 	  			'data-row' : item.get('position').row,
 	  			'data-col' : item.get('position').col,
-	  			'data-sizex' : item.get('position').size_x, 
+	  			'data-sizex' : item.get('position').size_x,
 	  			'data-sizey' : item.get('position').size_y,
 	  			'data-index' : view.options.itemIndex
 	  		});
@@ -44,7 +44,7 @@ define(['base','./field_view','../../../libs/gridster/dist/jquery.gridster'],fun
 		                  enabled: true,
 		                  handle_class: 'widget-resize',
 		               }
-		            }).data('gridster');
+		        }).data('gridster');
 	  		}
 	  	},
 	  	appendHtml: function(collectionView, itemView, index){

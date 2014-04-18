@@ -2,7 +2,8 @@ var express = require('express');
 exp_hbs = require('express3-handlebars'),
 passport = require('passport'),
 LocalStrategy = require('passport-local'),
-User = require('./models/user');
+User = require('./models/user'),
+nodemailer = require('nodemailer');
 
 var users = require('./services/user_service');
 var forms = require('./services/form_service');

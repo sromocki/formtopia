@@ -1,6 +1,26 @@
-<h4>{{#if form_name}}{{form_name}}{{else}}Untitled{{/if}}   
+<h4>{{#if form_name}}{{form_name}}{{else}}Untitled{{/if}}
 <span class="draft-text">{{#if isDraft}}(Draft){{/if}}</span></h4>
 
-<a href="{{link_to 'forms/form_builder'}}/{{_id}}">Edit</a>
-<a href="{{link_to 'forms/form'}}/{{_id}}" target="_blank">View</a>
-<a class="delete-form">Delete</a>
+<div class="row">
+  <div class="col-xs-5">
+    <div class="btn-group">
+      <button type="button" class="btn btn-default"><a href="{{link_to '#forms/form_builder'}}/{{_id}}">Edit</a></button>
+      <button type="button" class="btn btn-default"><a href="{{link_to '#forms/form'}}/{{_id}}" target="_blank">View</a></button>
+      <button type="button" class="btn btn-default"><a href="{{link_to '#forms/entry'}}/{{_id}}" target="_blank">Submit Entry</a></button>
+      <button type="button" class="btn btn-default create-link">Create Link</button>
+      <button type="button" class="btn btn-default delete-form">Delete</button>
+    </div>
+  </div>
+<div class="link-created hide">
+  <div class="col-xs-7">
+    <div class="form-horizontal">
+      <div class="form-group">
+        <label for="create-link" class="col-sm-2 control-label">Link:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" name="create-link"></input>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

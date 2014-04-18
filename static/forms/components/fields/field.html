@@ -1,8 +1,8 @@
   <div class="form-group">
   	{{#unless hide_label}}<label class="field-label"><span class="">{{field_name}}</span></label>{{/unless}}
   	{{#ifequals . type='text'}}
-	  <textarea class="form-control" maxlength="{{max_char}}" name="string_value" placeholder='{{placeholder}}'></textarea>
-	{{/ifequals}}
+	     <textarea class="form-control" maxlength="{{max_char}}" name="default_value" placeholder='{{placeholder}}'></textarea>
+	  {{/ifequals}}
 	<div class="widget-resize">
         <div class='widget-resize-handle'></div>
     </div>

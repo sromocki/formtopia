@@ -17,8 +17,4 @@ module.exports = {
   	  });
     });
   },
-  logout : function(request, response){
-  	request.logout();
-    response.redirect('/');
-  }
 };

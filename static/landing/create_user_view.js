@@ -5,7 +5,6 @@ define(['base','hbs!./create_user'],function(Base,tmpl){
     	'submit' : 'createUser',
     },
     createUser : function(){
-      debugger;
     },
 
   });

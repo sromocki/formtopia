@@ -16,6 +16,7 @@ module.exports = function(config) {
 	    if (!user) { return res.redirect('/'); }
 	    req.logIn(user, function(err) {
 	      if (err) { return next(err); }
+				res.user = user;
 	      return res.redirect('/#forms/form_builder');
 	    });
   	})(req, res, next);
@@ -30,8 +31,10 @@ module.exports = function(config) {
 
 	app.get('/api/forms', forms.index);
 	app.get('/api/forms/:id',forms.getForm);
+	app.get('/guest/forms/entry/:id/:token',forms.getForm);
 	app.put('/api/forms/:id',forms.updateForm);
 	app.delete('/api/forms/:id',forms.deleteForm);
 	app.post('/api/forms',forms.create);
+	app.post('/api/entry',forms.create_entry);
 
 };

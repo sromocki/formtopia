@@ -4,7 +4,8 @@ define(['base'],function(Base){
       '' : 'defaultRoute',
       ':controller' : 'defaultRoute',
       ':controller/:action' : 'defaultRoute',
-      ':controller/:controller/:id' : 'defaultRoute',
+      ':controller/:action/:id' : 'defaultRoute',
+      'guest/:controller/:action/:id' : 'guestOnly'
     },
     defaultRoute : function(controller, action, id){
       if(window.currentUser){
@@ -23,5 +24,12 @@ define(['base'],function(Base){
         });
       }
     },
+    guestOnly : function(controller, action, id){
+      this.mediator.publish('go',{
+        controller : controller || 'landing',
+        action : action,
+        id : id,
+      });
+    }
   });
 });

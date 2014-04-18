@@ -31,6 +31,11 @@ define(['base',
         },function(err){
         });
       },
-
+      entry : function(params){
+        this.need('forms/'+params.id).spread(function(model){
+          params.render(new FormView({model:model, isEntry: true}));
+        },function(err){
+        });
+      },
   });
 });

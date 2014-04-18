@@ -1,6 +1,6 @@
 define(['base','./components/fields/collection'],function(Base, Fields){
   return Base.Model.extend({
-    urlRoot : 'api/forms',
+    urlRoot : '/api/forms',
     idAttribute: "_id",
     defaults : {
     	"fields" : new Fields(),

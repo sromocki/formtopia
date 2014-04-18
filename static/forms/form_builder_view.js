@@ -8,7 +8,7 @@ define(['base',
   'modelbinder',
   '../libs/gridster/dist/jquery.gridster',
   './form_builder_footer_view'
-  ],function(Base, tmpl, Form, Fields, FieldModel, 
+  ],function(Base, tmpl, Form, Fields, FieldModel,
   FieldsView, FieldSettingsView, ModelBinder, gridster, FormBuilderFooterView){
   return Base.ItemView.extend({
     template : tmpl,
@@ -137,12 +137,12 @@ define(['base',
           });
           for(var r=0;; r++){
             for(var c=0; c < positionsUsed.length; c++){
-              if(positionsUsed[c][r] != true){ 
-                return position = {col:c+1 ,row:r+1,size_x:2,size_y:1};   
+              if(positionsUsed[c][r] != true){
+                return position = {col:c+1 ,row:r+1,size_x:2,size_y:1};
               }
             }
           }
       },
-    
+
   });
 });
