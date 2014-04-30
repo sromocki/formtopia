@@ -23,6 +23,7 @@ define(['base','hbs!./field_settings','modelbinder', '../../../libs/bootstrap/js
     },
     removeField : function(e){
         this.mediator.publish('fieldRemoved', {model:this.model}, this);
+        this.unbind();
         this.close();
     }
 

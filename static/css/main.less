@@ -1,6 +1,46 @@
+/* modules */
+@import "./modules/_mixins.scss";
+@import "./modules/_elements.scss";
+
+/* vendor */
+@import "./bootstrap/_bootstrap-overrides.scss";
+
+/* config variables */
+@import "./partials/_config.scss";
+
+/* layout */
+@import "./partials/_layout.scss";
+
+/* pages */
+@import "./partials/pages/_index.scss";
+@import "./partials/pages/_index2.scss";
+@import "./partials/pages/_index3.scss";
+@import "./partials/pages/_index4.scss";
+@import  "./partials/pages/_features.scss";
+@import  "./partials/pages/_services.scss";
+@import  "./partials/pages/_signup.scss";
+@import  "./partials/pages/_signup_rotate.scss";
+@import  "./partials/pages/_blog.scss";
+@import  "./partials/pages/_blogpost.scss";
+@import  "./partials/pages/_pricing.scss";
+@import  "./partials/pages/_charts.scss";
+@import  "./partials/pages/_aboutus.scss";
+@import  "./partials/pages/_contactus.scss";
+@import  "./partials/pages/_status.scss";
+@import  "./partials/pages/_gallery.scss";
+@import  "./partials/pages/_portfolio.scss";
+@import  "./partials/pages/_portfolio_item.scss";
+@import  "./partials/pages/_support.scss";
+@import  "./partials/pages/_404.scss";
+@import  "./partials/pages/_coming_soon.scss";
+@import  "./partials/pages/_docs.scss";
+@import  "./partials/pages/_invoice.scss";
+@import  "./partials/pages/_timeline.scss";
+@import "./compiled/theme.css";
+
 @import "../libs/bootstrap/less/bootstrap";
 @import "../libs/font-awesome/less/font-awesome";
-@import (less) "../libs/gridster/dist/jquery.gridster.css";
+@import "../libs/gridster/dist/jquery.gridster.css";
 @import "create-form";
 @import "field-settings";
 @import "field";
@@ -8,35 +48,10 @@
 @import "form-manager";
 @import "login";
 @import "landing";
-@font-face { font-family: 'OxygenMono-Regular';
-			 src: url('/static/fonts/OxygenMono-Regular.ttf');
-		   }
-body {
-  .main {
-    background-color : #E6E6E6;
-  }
-}
-.content {
-	height:100%;
-	.form-group {
-		width:100%;
-	}
-}
+
 hr {
- 	color:#919090;
- 	background-color:#919090;
- 	height:1px;
- 	border:none;
-}
-.navbar {
-	font-family: 'OxygenMono-Regular';
-	font-size: 14px;
-}
-.navbar-brand {
-	font-size: 18px;
-	font-weight: bold;
-}
-.navbar-header {
-	margin:0 auto;
-	width:500px;
+   color:#919090;
+   background-color:#919090;
+   height:1px;
+   border:none;
 }

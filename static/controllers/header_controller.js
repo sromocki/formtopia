@@ -16,7 +16,6 @@ define(['base','../header/view','jquery'],function(Base,HeaderView,$){
         url: '/session/logout',
         type : 'GET',
       });
-
     },
   });
 });

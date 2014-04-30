@@ -1,18 +1,45 @@
-<div class="row">
-    <div class="col-xs-4">
-      <h4>Login</h4>
-    </div>
+<div id="signup">
+	<div class="container">
+		<div class="row header">
+			<div class="col-md-12">
+				<h4>Sign in to your account.</h4>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="wrapper clearfix">
+					<div class="formy">
+						<div class="row">
+							<div class="col-md-12">
+								<form action="/api/login" method="post" role="form">
+							  		<div class="form-group">
+							    		<label for="username">Username</label>
+							    		<input type="text" class="form-control" name="username" />
+							  		</div>
+							  		<div class="form-group">
+							    		<label for="password">Password</label>
+							    		<input type="password" class="form-control" name="password" />
+							  		</div>
+							  		<div class="checkbox">
+							    		<label>
+							      			<input type="checkbox"> Remember me
+							    		</label>
+							  		</div>
+							  		<div class="submit">
+							  			<button type="submit" class="button-clear">
+								  			<span>Sign in to my account</span>
+								  		</button>
+							  		</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="already-account">
+					Don't have an account?
+					<a href="{{link_to 'landing/create_user'}}">Create one here</a>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
-<form action="/api/login" method="post" class='login-form'>
-<div class="row">
-		<label for="username">Username</label>
-	  <input class="form-control" name='username' placeholder='Username'></input>
-</div>
-<div class="row">
-		<label for="password">Password</label>
-	<input class="form-control" name='password' placeholder='Password'></input>
-</div>
-<div class="row login-button-row">
-	<button type="submit" class="btn btn-primary col-xs-offset-9 col-xs-3 login-btn">Login</button>
-</div>
-</form>

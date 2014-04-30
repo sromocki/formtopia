@@ -1,26 +1,64 @@
-<div class="row">
-		<div class="col-xs-5">
-			<h4>Create User</h4>
+<div id="signup">
+	<div class="container">
+		<div class="row header">
+			<div class="col-md-12">
+				<h4>Set up your new account today.</h4>
+				<p>
+					30-day money-back guarantee that starts after your first payment.
+				</p>
+			</div>
 		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="wrapper clearfix">
+					<div class="formy">
+						<div class="row">
+							<div class="col-md-12">
+								<form action="/api/user" method="post" role="form">
+									<div class="form-group">
+							    		<label for="username">Username</label>
+							    		<input type="text" class="form-control" name="username" />
+							  		</div>
+							  		<div class="form-group">
+							    		<label for="email">Email address</label>
+							    		<input type="email" class="form-control" name="email" />
+							  		</div>
+							  		<div class="form-group">
+							    		<label for="password">Password</label>
+							    		<input type="password" class="form-control" name="password" />
+							  		</div>
+										<div class="form-group">
+											<label for="confirm">Password</label>
+											<input type="password" class="form-control" name="confirm" />
+										</div>
+							  		<div class="checkbox">
+							    		<label>
+							      			<input type="checkbox"> You have read & agree to the
+							      			<a href="#">Terms of service</a>.
+							    		</label>
+							  		</div>
+										<div class="submit">
+											<button type="submit" class="button-clear">
+												<span>Create my account</span>
+											</button>
+										</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="already-account">
+					Already have an account?
+					<a href="{{link_to 'landing/login'}}" data-toggle="popover" data-placement="top" data-content="Go to sign in!" data-trigger="manual">Sign in here</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		// $(function () {
+		// 	$(".already-account a").popover();
+		// 	$(".already-account a").popover('show');
+		// });
+	</script>
 </div>
-<form action="/api/user" method="post" class="create-user-form">
-	  <div class="row">
-	  		<label for="username">Username</label>
-			<input class="form-control" name='username' placeholder='Username'></input>
-	  </div>
-	  <div class="row">
-	  		<label for="password">Password</label>
-			<input class="form-control" name='password' placeholder='Password'></input>
-	  </div>
-	  <div class="row">
-	  		<label for="confirm">Confirm Password</label>
-			<input class="form-control" name='confirm' placeholder='Confirm Password'></input>
-	  </div>
-	  <div class="row">
-	  		<label for="email">Email</label>
-			<input class="form-control" name='email' placeholder='Email'></input>
-	  </div>
-	  <div class="row">
-	  	<button type="submit" class="btn btn-primary create-user-btn col-xs-offset-7 col-xs-4">Create User</button>
-	  </div>
-</form>

@@ -75,7 +75,7 @@ define(['base',
     addField : function(){
       var fieldModel = new FieldModel();
       var position;
-      if(this.model.get('fields').length === 1){
+      if(this.model.get('fields').length === 0){
         position = {
           col: 1,
           row: 1,

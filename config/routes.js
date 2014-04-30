@@ -23,6 +23,7 @@ module.exports = function(config) {
 	});
 
 	app.get('/session/logout', function(req,res,next) {
+		debugger;
 		req.logout();
 		res.redirect('/');
 	});

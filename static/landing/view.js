@@ -1,21 +1,20 @@
-define(['base','hbs!./template','./login_view','./create_user_view'],function(Base,tmpl,LoginView,CreateUserView){
+define(['base','hbs!./template'],function(Base,tmpl){
   return Base.ItemView.extend({
     template : tmpl,
     events : {
-       'click .register-btn' : 'createUser',
-       'click .landing-login-btn' : 'loginUser'
+      'click a' : 'handleUrl',
+      'click .login-btn,.register-btn' : 'changeHeader',
     },
-    createUser : function(){
-    	this.$('.login-row, .register-row').addClass('hide');
-    	this.createUserView = new CreateUserView();
-    	this.$('.login-container').prepend(this.createUserView.el);
-      this.createUserView.render();
+    handleUrl : function(e){
+      var url = $(e.currentTarget).attr('href');
+      var rawLink = $(e.currentTarget).attr('data-raw');
+      if ((!rawLink) && url && url[0] != '#' && (url.indexOf('http') !== 0) && (url.indexOf('mailto') !== 0)){
+        window.bamfrouter.navigate(url, { trigger : true });
+        e.preventDefault();
+      }
     },
-    loginUser : function(){
-    	this.$('.login-row').addClass('hide');
-    	this.loginView = new LoginView();
-    	this.$('.login-container').prepend(this.loginView.el);
-    	this.loginView.render();
+    changeHeader : function(){
+      $('.main-header').addClass('header-signup');
     }
   });
 });

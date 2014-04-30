@@ -1,22 +1,40 @@
-<div class="header">
-  <nav class="navbar navbar-default" role="navigation">
-    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-      <span class="sr-only">Toggle navigation</span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-    </button>
-    <a class="navbar-brand" href="/" data-raw='true'>Formtopia</a>
-  <div class="collapse navbar-collapse">
-    <ul class="nav navbar-nav">
-      <li class="active"><a href="{{link_to 'forms/form_builder'}}">Form Builder</a></li>
-      <li class="active"><a href="{{link_to 'forms'}}">Form Manager</a></li>
-      <li class="active"><a href="{{link_to 'forms'}}">Contact</a></li>
-      <li class="active"><a href="{{link_to 'forms'}}">About</a></li>
-      {{#if username}}
-      <li class="active"><a href="/session/logout" data-raw='true'>Logout</a></li>
-      {{/if}}
-    </ul>
-  </div>
-  </nav>
-</div>
+{{#if username}}
+<header class="navbar navbar-inverse normal" role="banner">
+  		<div class="container">
+    		<div class="navbar-header">
+		      	<button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+		      	</button>
+      			<a href="/" class="navbar-brand">Formtopia</a>
+    		</div>
+    		<nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+      			<ul class="nav navbar-nav">
+              <li><a href="{{link_to 'forms/form_builder'}}">Form Builder</a></li>
+              <li><a href="{{link_to 'forms'}}">Form Manager</a></li>
+              <li><a href="{{link_to 'forms'}}">Contact</a></li>
+              <li><a href="{{link_to 'forms'}}">About</a></li>
+      			</ul>
+      			<ul class="nav navbar-nav navbar-right visible-md visible-lg">
+      				<li>
+          				<a href="{{link_to 'session/logout'}}" data-raw="true" class="button">Logout</a>
+        			</li>
+      			</ul>
+    		</nav>
+  		</div>
+</header>
+{{else}}
+<header class="navbar navbar-inverse hero" role="banner">
+    <div class="container">
+      <div class="navbar-header">
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a href="/" class="navbar-brand">Formtopia</a>
+      </div>
+    </div>
+</header>
+{{/if}}
