@@ -20,9 +20,10 @@ define(['base',
     events : {
       'submit form' : 'finalForm',
       'click .add-field' : 'addField',
-      'click .create-form-btn' : 'createForm'
+      'click .create-form-btn' : 'createForm',
     },
     initialize : function(){
+      this.model.set('isDraft',true);
       this.model.on('change',this.saveForm,this);
       this.model.get('fields').on('remove',this.saveForm,this);
       this.mediator.subscribe('fieldModified',this.saveForm,this);
@@ -30,10 +31,6 @@ define(['base',
       this.modelBinder = new ModelBinder();
     },
     onRender: function(){
-      if(this.model.id){
-        this.$('.create-form-row').addClass('hide');
-        this.$('.form-builder-container').removeClass('hide');
-      }
        this.modelBinder.bind(this.model, this.el);
        _.defer(_.bind(function(){
         this.renderFieldsView();
@@ -91,12 +88,6 @@ define(['base',
     },
     finalForm : function(e){
       e.preventDefault();
-      this.model.set('isDraft',false);
-    },
-    createForm : function(){
-      this.$('.create-form-row').addClass('hide');
-      this.$('.form-builder-container').removeClass('hide');
-      this.model.set('isDraft',true);
     },
     saveForm: function(fieldSelected){
       this.model.save(null,{

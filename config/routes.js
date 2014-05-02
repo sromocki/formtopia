@@ -17,13 +17,12 @@ module.exports = function(config) {
 	    req.logIn(user, function(err) {
 	      if (err) { return next(err); }
 				res.user = user;
-	      return res.redirect('/#forms/form_builder');
+	      return res.redirect('/#forms');
 	    });
   	})(req, res, next);
 	});
 
 	app.get('/session/logout', function(req,res,next) {
-		debugger;
 		req.logout();
 		res.redirect('/');
 	});
