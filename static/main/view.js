@@ -8,7 +8,7 @@ define(['base','hbs!./main'],function(Base,tmpl){
       var url = $(e.currentTarget).attr('href');
       var rawLink = $(e.currentTarget).attr('data-raw');
       if ((!rawLink) && url && url[0] != '#' && (url.indexOf('http') !== 0) && (url.indexOf('mailto') !== 0)){
-        window.bamfrouter.navigate(url, { trigger : true });
+        this.mediator.publish('navigate', {url: url, opts: { trigger : true }});
         e.preventDefault();
       }
     },

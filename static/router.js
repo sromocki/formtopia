@@ -7,6 +7,11 @@ define(['base'],function(Base){
       ':controller/:action/:id' : 'defaultRoute',
       'guest/:controller/:action/:id' : 'guestOnly',
     },
+    initialize : function(){
+      this.mediator.subscribe('navigate', function(params){
+        this.navigate(params.url, params.opts);
+      }, this);
+    },
     defaultRoute : function(controller, action, id){
       if(window.currentUser){
         this.mediator.publish('go',{

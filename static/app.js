@@ -28,7 +28,5 @@ define(['router','controllers/main_controller','backbone','utils/helpers'],funct
   var router = new Router();
   var c = new MainController({ $el : $('body') }).mediator.publish('go',{controller : 'main' });
 
-  window.bamfrouter = router;
-
   Backbone.history.start({pushState: true});
 });
