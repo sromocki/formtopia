@@ -26,7 +26,7 @@ require.config({
 });
 define(['router','controllers/main_controller','backbone','utils/helpers'],function(Router, MainController, Backbone, Helpers){
   var router = new Router();
-  var c = new MainController({ $el : $('body') }).mediator.publish('go',{controller : 'main' });
+  var c = new MainController({ $el : $('#formtopia-app') }).mediator.publish('go',{controller : 'main' });
 
   Backbone.history.start({pushState: true});
 });

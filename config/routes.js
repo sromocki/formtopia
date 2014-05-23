@@ -5,6 +5,9 @@ module.exports = function(config) {
 	var passport = config.passport;
 
 	app.get('/',function(request,response){
+		if(request.user){
+			delete request.user['password'];
+		}
   	response.render('landing', { user : request.user && JSON.stringify(request.user)});
 	});
 	app.get('/forms',function(request,response){
@@ -13,7 +16,7 @@ module.exports = function(config) {
 	app.post('/api/login', function(req,res,next) {
 		passport.authenticate('local', function(err, user, info) {
 	    if (err) { return next(err); }
-	    if (!user) { return res.redirect('/'); }
+	    if (!user) { return res.redirect('/'); }			
 	    req.logIn(user, function(err) {
 	      if (err) { return next(err); }
 				res.user = user;
