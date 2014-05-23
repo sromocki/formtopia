@@ -1,10 +1,7 @@
 <div class="container form-builder">
   <form class='well' role="form">
     <h1>Form Builder</h1>
-    <hr>
-    <div class="form-builder-container">
-      <div class="row top-settings">
-        <div class="col-xs-6 form-meta-container">
+    <div class="form-meta-container">
         <div class="form-group row">
           <h4 class="col-xs-12">Form Meta Data</h4>
         </div>
@@ -21,18 +18,20 @@
               <label for="form_tags">Form Tags</label>
               <input class="form-control" name='form_tags' placeholder='Tags'></input>
             </div>
-          </div>
-          <hr>
         </div>
-        <div class="col-xs-6 field-settings"></div>
+    </div>
+    <hr>
+    <div class="row top-settings">
+      <div class="field-settings"></div>
+    </div>
+    <div class="form-title">
+      <div class="row">
+        <h4 class="col-xs-2">The Form</h4>
+        <button type="button" class="btn btn-success col-xs-2 add-field">Add Field</button>
       </div>
+    </div>
+    <div class="form-builder-container">  
       <div class="form-container container">
-        <div class="form-title">
-          <div class="row">
-            <h4 class="col-xs-3">The Form</h4>
-            <button type="button" class="btn btn-success col-xs-3 col-xs-offset-6 add-field">Add Field</button>
-          </div>
-        </div>
         <div class="form-body well">
           <div class='field-container'></div>
         </div>
