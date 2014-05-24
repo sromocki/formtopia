@@ -4,31 +4,32 @@ module.exports = function(config) {
 	var forms = config.services.forms;
 	var passport = config.passport;
 
-	app.get('/',function(request,response){
-		if(request.user){
-			delete request.user['password'];
+	var serveStatic = function(req,res){
+		if(req.user){
+			delete req.user['password'];
 		}
-  	response.render('landing', { user : request.user && JSON.stringify(request.user)});
-	});
-	app.get('/forms',function(request,response){
-		response.render('landing');
-	});
+		res.render('landing', { user : req.user && JSON.stringify(req.user)});
+	};
+	app.get('/',serveStatic);
+	app.get('/forms*',serveStatic);
+
 	app.post('/api/login', function(req,res,next) {
 		passport.authenticate('local', function(err, user, info) {
-	    if (err) { return next(err); }
-	    if (!user) { return res.redirect('/'); }			
-	    req.logIn(user, function(err) {
-	      if (err) { return next(err); }
+			if (err) { return next(err); }
+			if (!user) { return res.redirect('/'); }
+			req.logIn(user, function(err) {
+				if (err) { return next(err); }
 				res.user = user;
-	      return res.redirect('/#forms');
-	    });
-  	})(req, res, next);
+				return res.redirect('/#forms');
+			});
+		})(req, res, next);
 	});
 
 	app.get('/session/logout', function(req,res,next) {
 		req.logout();
 		res.redirect('/');
 	});
+
 
 	app.post('/api/user', users.create);
 

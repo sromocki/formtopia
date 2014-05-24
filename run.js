@@ -7,8 +7,8 @@ nodemailer = require('nodemailer');
 
 var users = require('./services/user_service');
 var forms = require('./services/form_service');
-
 var app = express();
+
 require('mongoose').connect(process.env.MONGO_URL || 'mongodb://localhost/test');
 app.engine('hbs', exp_hbs({defaultLayout: 'main', extname : '.hbs'}));
 app.set('view engine', 'hbs');
