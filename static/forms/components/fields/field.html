@@ -1,7 +1,10 @@
   <div class="form-group">
-  	{{#unless hide_label}}<label class="field-label"><span class="">{{field_name}}</span></label>{{/unless}}
+  	{{#unless hide_label}}<label for="{{_id}}" class="field-label"><span class="">{{field_name}}</span></label>{{/unless}}
+    {{#if supportive_text}}<i class="fa fa-question-circle help-icon"></i>{{/if}}
   	{{#ifequals . type='text'}}
-	     <textarea class="form-control" maxlength="{{max_char}}" name="default_value" placeholder='{{placeholder}}'></textarea>
+      <div class="text-box">
+	     <textarea class="form-control" id="{{_id}}" maxlength="{{max_char}}" name="default_value" placeholder='{{placeholder}}'></textarea>
+      </div>
 	  {{/ifequals}}
 	<div class="widget-resize">
         <div class='widget-resize-handle'></div>

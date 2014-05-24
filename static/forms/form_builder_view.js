@@ -28,6 +28,7 @@ define(['base',
       this.model.get('fields').on('remove',this.saveForm,this);
       this.mediator.subscribe('fieldModified',this.saveForm,this);
       this.mediator.subscribe('fieldSelected',this.selectField,this);
+      this.mediator.subscribe('saveForm', this.saveForm,this);
       this.modelBinder = new ModelBinder();
     },
     onRender: function(){

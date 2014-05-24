@@ -66,6 +66,7 @@ define(['base','./field_view','../../../libs/gridster/dist/jquery.gridster'],fun
 	        var widgetModel = this.collection.findWhere({itemIndex: +widget.index});
 	        widgetModel.set('position',widget.position,{silent:true});
 	      },this));
+        this.mediator.publish('saveForm');
 	    },
 	    fieldRemoved : function(params){
 	    	debugger;

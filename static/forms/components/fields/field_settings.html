@@ -3,33 +3,37 @@
 	  <h4 class="col-xs-12">Field Settings</h4>
 	</div>
 	<div class="row form-group">
-		<ul class="nav nav-pills col-xs-2">
-			<label for="field_type">Field Type</label>
-			<li class="dropdown active">
-		  		<a data-toggle="dropdown" role="button" data-target="#">{{#if typeLabel}}{{typeLabel}}{{/if}}<b class="caret"></b></a>
-		  		<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-		  			<li value="label"><a>Label/Header</a></li>
-		    		<li value="text"><a>Text Box</a></li>
-		    		<li value="radio"><a>Radio Buttons</a></li>
-		    		<li value="checkbox"><a>Checkboxes</a></li>
-		  		</ul>
-			</li>
-		</ul>
-		<div class="col-xs-4">
-			<label for="field_name">Field Name/Label</label>
-			<input type="text" class="form-control field-settings-input" name="field_name"></input>
+		<div class="col-xs-6">
+				<ul class="nav nav-pills col-xs-4">
+					<label for="field_type">Field Type</label>
+					<li class="dropdown active">
+				  		<a data-toggle="dropdown" role="button" data-target="#">{{#if typeLabel}}{{typeLabel}}{{/if}}<b class="caret"></b></a>
+				  		<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+				  			<li value="label"><a>Label/Header</a></li>
+				    		<li value="text"><a>Text Box</a></li>
+				    		<li value="radio"><a>Radio Buttons</a></li>
+				    		<li value="checkbox"><a>Checkboxes</a></li>
+				  		</ul>
+					</li>
+				</ul>
+				<div class="col-xs-8">
+					<label for="field_name">Field Name/Label</label>
+					<input type="text" class="form-control field-settings-input" name="field_name"></input>
+				</div>
 		</div>
-		<div class="col-xs-2 radio">
-			<label for="hide_label">Hide Label</label>
-			<input type="checkbox" class="field-checkbox" name="hide_label"></input>
-		</div>
-		<div class="col-xs-2 radio">
-			<label for="label_position">Horizontal</label>
-			<input type="radio" name="label_position" value="horizontal">
-		</div>
-		<div class="col-xs-2 radio">
-			<label for="position">Vertical</label>
-			<input type="radio" name="label_position" value="vertical">
+		<div class="col-xs-6 label-settings">
+			<div class="col-xs-3 radio">
+				<label for="hide_label">Hide Label</label>
+				<input type="checkbox" class="field-checkbox" name="hide_label"></input>
+			</div>
+			<div class="col-xs-3 radio">
+				<label for="label_position">Horizontal</label>
+				<input type="radio" name="label_position" value="horizontal">
+			</div>
+			<div class="col-xs-3 radio">
+				<label for="position">Vertical</label>
+				<input type="radio" name="label_position" value="vertical">
+			</div>
 		</div>
 	</div>
 	<div class="row form-group">
