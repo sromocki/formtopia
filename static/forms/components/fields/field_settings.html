@@ -37,58 +37,62 @@
 		</div>
 	</div>
 	<div class="row form-group">
-		<div class="col-xs-4">
-			<label for="supportive_text">Supportive Text</label>
-			<input type="text" class="form-control field-settings-input" name="supportive_text"></input>
+		<div class="col-xs-12">
+			<div class="col-xs-4">
+				<label for="supportive_text">Supportive Text</label>
+				<input type="text" class="form-control field-settings-input" name="supportive_text"></input>
+			</div>
+			{{#ifequals . type='text'}}
+			<div class="col-xs-4">
+				<label for="default_value">Default Value</label>
+				<input type="text" class="form-control field-settings-input" name="default_value"></input>
+			</div>
+			<div class="col-xs-4">
+				<label for="placeholder">Placeholder</label>
+				<input type="text" class="form-control field-settings-input" name="placeholder"></input>
+			</div>
+			{{/ifequals}}
+			{{#ifequals . type='radio'}}
+				<div class="col-xs-2">
+					<label for="input-position">Horizontal</label>
+					<input type="radio" name="input-position" value="horizontal">
+				</div>
+				<div class="col-xs-2">
+					<label for="input-position">Vertical</label>
+					<input type="radio" name="input-position" value="vertical">
+				</div>
+			{{/ifequals}}
+			{{#ifequals . type='checkbox'}}
+				<div class="col-xs-2">
+					<label for="input-position">Horizontal</label>
+					<input type="radio" name="input-position" value="horizontal">
+				</div>
+				<div class="col-xs-2">
+					<label for="input-position">Vertical</label>
+					<input type="radio" name="input-position" value="vertical">
+				</div>
+			{{/ifequals}}
 		</div>
-		{{#ifequals . type='text'}}
-		<div class="col-xs-4">
-			<label for="default_value">Default Value</label>
-			<input type="text" class="form-control field-settings-input" name="default_value"></input>
-		</div>
-		<div class="col-xs-4">
-			<label for="placeholder">Placeholder</label>
-			<input type="text" class="form-control field-settings-input" name="placeholder"></input>
-		</div>
-		{{/ifequals}}
-		{{#ifequals . type='radio'}}
-			<div class="col-xs-2">
-				<label for="input-position">Horizontal</label>
-				<input type="radio" name="input-position" value="horizontal">
-			</div>
-			<div class="col-xs-2">
-				<label for="input-position">Vertical</label>
-				<input type="radio" name="input-position" value="vertical">
-			</div>
-		{{/ifequals}}
-		{{#ifequals . type='checkbox'}}
-			<div class="col-xs-2">
-				<label for="input-position">Horizontal</label>
-				<input type="radio" name="input-position" value="horizontal">
-			</div>
-			<div class="col-xs-2">
-				<label for="input-position">Vertical</label>
-				<input type="radio" name="input-position" value="vertical">
-			</div>
-		{{/ifequals}}
 	</div>
 	<div class="form-group row">
-	{{#ifequals . type='text'}}
-		<div class="col-xs-2">
-			<label for="max_char">Max Char</label>
-			<input type="text" class="form-control field-settings-input" name="max_char"></input>
-		</div>
-	{{/ifequals}}
-		<div class="col-xs-2">
-			<label for="required">Required</label>
-			<input type="checkbox" class="field-checkbox" name="required"></input>
-		</div>
-		<div class="col-xs-1">
-			<label for="unique">Unique</label>
-			<input type="checkbox" class="field-checkbox" name="unique"></input>
-		</div>
-		<div class="col-xs-3">
-			<button type="button" class="btn btn-danger remove-field">Remove Field</button>
+		<div class="col-xs-12">
+			{{#ifequals . type='text'}}
+				<div class="col-xs-2">
+					<label for="max_char">Max Char</label>
+					<input type="text" class="form-control field-settings-input" name="max_char"></input>
+				</div>
+			{{/ifequals}}
+				<div class="col-xs-2">
+					<label for="required">Required</label>
+					<input type="checkbox" class="field-checkbox" name="required"></input>
+				</div>
+				<div class="col-xs-1">
+					<label for="unique">Unique</label>
+					<input type="checkbox" class="field-checkbox" name="unique"></input>
+				</div>
+				<div class="col-xs-3">
+					<button type="button" class="btn btn-danger remove-field">Remove Field</button>
+				</div>
 		</div>
 	</div>
 </div>

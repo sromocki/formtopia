@@ -65,11 +65,14 @@ define(['base',
     refreshFieldSettingsView : function(model){
       if(this.fieldSettingsView){
          this.fieldSettingsView.model = model;
+         this.fieldSettingsView.render();
       } else {
          this.fieldSettingsView = new FieldSettingsView({model:model});
+         this.$('.field-settings').append(this.fieldSettingsView.el);
+         this.fieldSettingsView.render();
+         this.fieldSettingsView.$el.hide();
       }
-      this.$('.field-settings').append(this.fieldSettingsView.el);
-      this.fieldSettingsView.render();
+         this.fieldSettingsView.$el.slideDown("slow");
     },
     addField : function(){
       var fieldModel = new FieldModel();
@@ -107,7 +110,7 @@ define(['base',
             if (fieldModel){
               _.defer(_.bind(function(){this.selectField({model:fieldModel})},this));
             } else {
-              this.closeFieldSettings();
+              this.fieldSettingsView.$el.slideUp("slow");
             }
           }
         },this),
