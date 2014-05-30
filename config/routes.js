@@ -12,6 +12,7 @@ module.exports = function(config) {
 	};
 	app.get('/',serveStatic);
 	app.get('/forms*',serveStatic);
+	app.get('/landing*',serveStatic);
 
 	app.post('/api/login', function(req,res,next) {
 		passport.authenticate('local', function(err, user, info) {

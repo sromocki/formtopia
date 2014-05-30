@@ -1,6 +1,7 @@
 define(['base'],function(Base){
   return Base.Router.extend({
     routes : {
+      'landing/:action' : 'landingRoute',
       '' : 'defaultRoute',
       ':controller' : 'defaultRoute',
       ':controller/:action' : 'defaultRoute',
@@ -13,33 +14,22 @@ define(['base'],function(Base){
       }, this);
     },
     defaultRoute : function(controller, action, id){
-      if(window.currentUser){
+        if(!window.currentUser){
+          controller = 'landing';
+          action = null;
+          id = null;
+        }
         this.mediator.publish('go',{
           controller : controller || 'landing',
-          action : action,
+          action : action || 'index',
           id : id,
         });
-      } else if (controller && controller !== "landing") {
-        window.location.pathname = "/";
-      } else if (action === 'login'){
-        this.mediator.publish('go',{
-          controller : 'landing',
-          action : 'login',
-          id : id,
-        });
-      } else if (action === "create_user") {
-        this.mediator.publish('go',{
-          controller : 'landing',
-          action : 'create_user',
-          id : id,
-        });
-      } else {
-        this.mediator.publish('go',{
-          controller : controller || 'landing',
-          action : 'index',
-          id : id,
-        });
-      }
+    },
+    landingRoute : function(action){
+      this.mediator.publish('go',{
+        controller : 'landing',
+        action : action
+      });
     },
     guestOnly : function(controller, action, id){
       this.mediator.publish('go',{
