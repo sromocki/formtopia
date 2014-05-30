@@ -4,3 +4,7 @@ bower_components
 build
 static/libs
 libs
+log
+config/production.yml
+config/runtime.json
+.vagrant

@@ -1,0 +1,34 @@
+<VirtualHost *:80>
+        RewriteEngine on
+        ReWriteCond %{SERVER_PORT} !^443$
+        RewriteRule ^/(.*) https://%{HTTP_HOST}/$1 [NC,R,L]
+</VirtualHost>
+
+<VirtualHost *:443>
+
+  ServerName <%= @params[:server_name] %>
+  DocumentRoot <%= @params[:docroot] %>
+
+  <Proxy balancer://formtopiaservers>
+    BalancerMember http://127.0.0.1:9000
+  </Proxy>
+
+  # Redirect all non-static requests to node
+  RewriteCond %{DOCUMENT_ROOT}/%{REQUEST_FILENAME} !-f
+  RewriteRule ^/(.*)$ balancer://formtopiaservers%{REQUEST_URI} [P,QSA,L]
+
+  ProxyPass / balancer://formtopiaservers/
+  ProxyPassReverse / balancer://formtopiaservers/
+  ProxyPreserveHost on
+
+  <Proxy *>
+    Order deny,allow
+    Allow from all
+  </Proxy>
+
+  SSLEngine on
+
+  SSLCertificateFile    /etc/ssl/certs/ssl-cert-snakeoil.pem
+  SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
+
+</VirtualHost>

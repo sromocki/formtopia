@@ -1,0 +1,60 @@
+mongodb:
+  server: <%= @mongodb_host %>
+  database: <%= @mongodb_database %>
+  user: <%= @mongodb_user %>
+  password: <%= @mongodb_password %>
+  connectionString: <%= @mongodb_host %>:27017/<%= @mongodb_database %>
+
+monitor:
+  name: <%= @monitor_name %>
+  apiUrl: '<%= @api_endpoint %>'
+
+  pollingInterval: <%= @monitor_polling_interval %>
+  timeout: <%= @monitor_timeout %>
+  userAgent: NodeUptime/1.3
+
+analyzer:
+  updateInterval: <%= @analyzer_update_interval %>
+  qosAggregationInterval: <% @analyzer_aggregation_interval %>
+  pingHistory: <%= @analyzer_ping_history %>
+
+autoStartMonitor: false
+
+server:
+  port: <%= @port %>
+
+plugins:
+  - ./plugins/console
+  - ./plugins/patternMatcher
+  - ./plugins/httpOptions
+  <% if @enable_alerts %>
+  - ./plugins/email
+  <% end %>
+  <% if @enable_basic_auth %>
+  - ./plugins/basicAuth
+  <% end %>
+
+<% if @enable_alerts %>
+email:
+  method:      SMTP  # possible methods are SMTP, SES, or Sendmail
+  transport:         # see https://github.com/andris9/nodemailer for transport options
+    service:   Gmail # see https://github.com/andris9/Nodemailer/blob/master/lib/wellknown.js for well-known services
+    auth:            
+      user:    'dev.use.alert@gmail.com'      # The email account username, e.g. 'username@gmail.com'
+      pass:    'boilerr00m'      # The email account password, e.G. 'password'
+  event:
+    up:        true
+    down:      true
+    paused:    false
+    restarted: false
+  message:           
+    from:      'dev.use.alert@gmail.com'      # The message sender, e.g. 'Fred Foo <foo@blurdybloop.com>'
+    to:        'usenergy@daft.io'      # The message recipient, e.g. 'bar@blurdybloop.com, baz@blurdybloop.com'
+  dashboardUrl: 'http://uptime.use-manager.com'
+<% end %>
+
+<% if @enable_basic_auth %>
+basicAuth:
+  username:    <%= @basic_auth_user %>
+  password:    <%= @basic_auth_password %>
+<% end %>

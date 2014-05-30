@@ -1,0 +1,19 @@
+description "Formtopia App"
+author "Chef"
+
+start on (filesystem and net-device-up)
+stop on runlevel [!2345]
+
+respawn
+respawn limit 5 30
+
+chdir <%= @dir %>
+setuid <%= @user %>
+
+
+
+script
+  NODE_ENV=production exec node run.js >> <%= @log_dir %>/formtopia-app.log 2>&1
+end script
+
+emits formtopia-app-running
