@@ -24,7 +24,6 @@ define(['base','./field_view','../../../libs/gridster/dist/jquery.gridster'],fun
 	  		return view;
 	  	},
 	  	onCollectionBeforeRender : function(){
-	  		this.mediator.on('fieldRemoved', this.fieldRemoved, this);
 	  		this.constructGrid();
 	  	},
 	  	constructGrid : function(){
@@ -69,9 +68,6 @@ define(['base','./field_view','../../../libs/gridster/dist/jquery.gridster'],fun
         this.mediator.publish('saveForm');
 	    },
 	    fieldRemoved : function(params){
-	    	debugger;
-	      //var fieldEl = this.$('.field[data-index='+params.model.get('itemIndex')+']')[0];
-	      //this.gridster.remove_widget(fieldEl);
 	      this.collection.remove(params.model);
 	    },
 

@@ -6,7 +6,7 @@ define(['base','hbs!./field_settings','modelbinder', '../../../libs/bootstrap/js
     },
     events : {
     	"click @ui.dropdownChoices" : "selectType",
-        "click .remove-field" : "removeField"
+      "click .remove-field" : "removeField"
     },
     initialize: function(){
         this.modelBinder = new ModelBinder();
@@ -22,10 +22,8 @@ define(['base','hbs!./field_settings','modelbinder', '../../../libs/bootstrap/js
     	this.render();
     },
     removeField : function(e){
-        this.mediator.publish('fieldRemoved', {model:this.model}, this);
-        this.unbind();
-        this.close();
-    }
+      this.trigger('fieldRemoved', {model:this.model}, this);
+    },
 
   });
 });

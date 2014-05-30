@@ -29,6 +29,7 @@ define(['base',
       this.mediator.subscribe('fieldModified',this.saveForm,this);
       this.mediator.subscribe('fieldSelected',this.selectField,this);
       this.mediator.subscribe('saveForm', this.saveForm,this);
+      
       this.modelBinder = new ModelBinder();
     },
     onRender: function(){
@@ -44,7 +45,7 @@ define(['base',
         delete this.fieldsView;
       }
       this.fieldsView = new FieldsView({collection:this.model.get('fields')});
-
+      
       this.fieldsView.on("field:fieldModified",_.bind(function(childView,model){
         this.saveForm(model);
       },this));
@@ -63,10 +64,10 @@ define(['base',
     },
     refreshFieldSettingsView : function(model){
       if(this.fieldSettingsView){
-         this.fieldSettingsView.remove();
-         delete this.fieldSettingsView;
+         this.fieldSettingsView.model = model;
+      } else {
+         this.fieldSettingsView = new FieldSettingsView({model:model});
       }
-      this.fieldSettingsView = new FieldSettingsView({model:model});
       this.$('.field-settings').append(this.fieldSettingsView.el);
       this.fieldSettingsView.render();
     },
@@ -96,9 +97,18 @@ define(['base',
           this.model.set('fields',model.get('fields'),{silent:true});
           this.renderFieldsView();
           this.renderFooterView();
+          var fieldModel;
           if(fieldSelected && fieldSelected.get('itemIndex') !== undefined){
-            var fieldModel = this.model.get('fields').findWhere({itemIndex:fieldSelected.get('itemIndex')});
-            _.defer(_.bind(function(){this.selectField({model:fieldModel})},this));
+              fieldModel = this.model.get('fields').findWhere({itemIndex:fieldSelected.get('itemIndex')});
+            if (!fieldModel) {
+              fieldModel = this.model.get('fields').findWhere({itemIndex:fieldSelected.get('itemIndex') - 1});
+            }  
+
+            if (fieldModel){
+              _.defer(_.bind(function(){this.selectField({model:fieldModel})},this));
+            } else {
+              this.closeFieldSettings();
+            }
           }
         },this),
       }).then(_.bind(function(){
@@ -107,12 +117,20 @@ define(['base',
     },
     selectField : function(params){
       this.refreshFieldSettingsView(params.model);
+      this.fieldSettingsView.on('fieldRemoved', this.removeField, this);
       this.$('.field').removeClass('selected');
       _.each(this.fieldsView.children._views, function(view){
         if(view.model.get('itemIndex') === params.model.get('itemIndex')){
           view.$el.addClass('selected');
         }
       });
+    },
+    removeField : function(params){
+      this.fieldsView.fieldRemoved(params);
+    },
+    closeFieldSettings : function(){
+      this.fieldSettingsView.close();
+      delete this.fieldSettingsView;
     },
     nextAvailablePosition : function(widgets){
           var positions = widgets.pluck('position');

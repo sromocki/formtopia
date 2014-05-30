@@ -22,7 +22,8 @@ define(['base',
             },function(err){
             });
         } else {
-          return new FormBuilderView({model:new FormModel()});
+          var formModel = new FormModel();
+          return new FormBuilderView({model:formModel});
         }
       },
       form : function(params){
