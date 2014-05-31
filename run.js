@@ -9,6 +9,29 @@ var users = require('./services/user_service');
 var forms = require('./services/form_service');
 var app = express();
 
+app.configure('development', function() {
+//   // live reload script
+
+  var tinylr = require('tiny-lr');
+
+  // standard LiveReload port
+  var port = 35729;
+
+  // tinylr(opts) => new tinylr.Server(opts);
+  tinylr().listen(port, function() {
+    console.log('... Listening on %s ...', port);
+  })
+  var liveReloadPort = 35729;
+  var excludeList = ['.woff', '.flv'];
+  
+  app.use(require('connect-livereload')({
+    port: liveReloadPort,
+    excludeList: excludeList
+  }));
+
+  require('./watcher')();
+});
+
 require('mongoose').connect(process.env.MONGO_URL || 'mongodb://localhost/test');
 app.engine('hbs', exp_hbs({defaultLayout: 'main', extname : '.hbs'}));
 app.set('view engine', 'hbs');
@@ -62,3 +85,5 @@ var config = {
 require('./config/routes') (config);
 
 app.listen(process.env.PORT || 9000);
+
+

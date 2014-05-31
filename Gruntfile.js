@@ -1,3 +1,5 @@
+var request = require("request");
+
 module.exports = function(grunt) {
 
     grunt.initConfig({
@@ -34,10 +36,31 @@ module.exports = function(grunt) {
                 },
             },
         },
+        watch: {
+            server: {
+                files: ['services/*', 'models/*', 'config/*', 'views/*', 'run.js'],
+            },
+            client: {
+                files: ['static/**/*', '!static/libs/**', 'views/*'],
+            },
+            options: {
+                debounceDelay: 1000,
+            }
+        },
+    });
+
+    grunt.event.on('watch', function(action, filepath, target) {
+        console.log(target);
+        if (target == 'client') {
+            request("http://www.formtopia.dev:35729/changed?files=" + filepath);        
+        } else {
+            request("http://www.formtopia.dev:3000/" + filepath);   
+        } 
     });
 
     grunt.loadNpmTasks('grunt-requirejs');
     grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.registerTask('default', ['build']);
