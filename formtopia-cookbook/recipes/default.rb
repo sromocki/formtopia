@@ -35,6 +35,13 @@ execute "npm-install" do
   command "npm install"
 end
 
+%w{ node-inspector nodemon }.each do |global|
+  execute "node inspector" do
+    cwd node["formtopia_app"]["dir"]
+    command "npm install -g #{global}"
+  end
+end
+
 template "#{node["formtopia_app"]["dir"]}/config/production.yml" do
   mode "0644"
   source "production.yml.erb"
@@ -94,7 +101,7 @@ logrotate_app "formtopia" do
   create "644 root root"
 end
 
-[ "formtopia-app" ].each do |component|
+[ "formtopia-app", "formtopia-inspector" ].each do |component|
   template "/etc/init/#{component}.conf" do
     mode "0644"
     source "#{component}.conf.erb"

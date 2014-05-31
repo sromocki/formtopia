@@ -1,4 +1,4 @@
-description "Formtopia App"
+description "Formtopia Inspector"
 author "Chef"
 
 start on (filesystem and net-device-up)
@@ -13,7 +13,7 @@ setuid <%= @user %>
 
 
 script
-  NODE_ENV=development exec nodemon --debug run.js >> <%= @log_dir %>/formtopia-app.log 2>&1
+  NODE_ENV=production node-inspector
 end script
 
-emits formtopia-app-running
+emits formtopia-inspector-running
