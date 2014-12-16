@@ -4,7 +4,7 @@ TODO: Enter the cookbook description here.
 
 ## Supported Platforms
 
-TODO: List your supported platforms.
+TODO: List your supported platforms. Win
 
 ## Attributes
 
